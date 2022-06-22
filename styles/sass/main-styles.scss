@@ -1,2 +1,63 @@
+@import 'variables';
+@import 'mixins';
+
+@font-face {
+    font-family: 'myriad';
+    src: url('../../files/fonts/Myriad.ttf');
+}
+@font-face {
+    font-family: 'myriad';
+    src: url('../../files/fonts/MyriadWebBold.ttf');
+    font-weight: bold;
+}
+body{
+    font-family: 'myriad';
+    background-color: $bgDarkColor !important;
+}
+.container{
+    color: $textColor;
+}
 
 
+
+/*-------------------
+        Header 
+--------------------*/
+header{
+    position: sticky;
+    top: 0;
+    right: 0;
+
+    // Childes styles 
+    #new-task-btn{
+        background-color: $bgGoldColor;
+        border-radius: 15px;
+        -webkit-border-radius: 15px;
+        -moz-border-radius: 15px;
+        -ms-border-radius: 15px;
+        -o-border-radius: 15px;
+        color: $bgDarkColor;
+        width: 130px;
+        font-weight: 500;
+        padding: 8px ;
+        transition: .4s;
+        -webkit-transition: .4s;
+        -moz-transition: .4s;
+        -ms-transition: .4s;
+        -o-transition: .4s;
+        border: 3px solid transparent;
+        @include mediaMinWidth(500px){
+            span{
+                margin-bottom: 1px;
+            }
+        }
+        
+
+        &:hover{
+            background-color: $bgDarkColor ;
+            border-color: $bgGoldColor;
+            color: $bgGoldColor ;
+        }
+    }
+   
+}

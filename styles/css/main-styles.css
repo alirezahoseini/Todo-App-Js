@@ -1,3 +1,56 @@
+@font-face {
+  font-family: "myriad";
+  src: url("../../files/fonts/Myriad.ttf");
+}
+@font-face {
+  font-family: "myriad";
+  src: url("../../files/fonts/MyriadWebBold.ttf");
+  font-weight: bold;
+}
+body {
+  font-family: "myriad";
+  background-color: #131024 !important;
+}
 
+.container {
+  color: rgb(245, 245, 245);
+}
+
+/*-------------------
+        Header 
+--------------------*/
+header {
+  position: sticky;
+  top: 0;
+  right: 0;
+}
+header #new-task-btn {
+  background-color: rgb(255, 187, 0);
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+  color: #131024;
+  width: 130px;
+  font-weight: 500;
+  padding: 8px;
+  transition: 0.4s;
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  -ms-transition: 0.4s;
+  -o-transition: 0.4s;
+  border: 3px solid transparent;
+}
+@media screen and (min-width: 500px) {
+  header #new-task-btn span {
+    margin-bottom: 1px;
+  }
+}
+header #new-task-btn:hover {
+  background-color: #131024;
+  border-color: rgb(255, 187, 0);
+  color: rgb(255, 187, 0);
+}
 
 /*# sourceMappingURL=main-styles.css.map */
