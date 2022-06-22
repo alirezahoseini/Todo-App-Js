@@ -24,10 +24,6 @@ body{
         Header 
 --------------------*/
 header{
-    position: sticky;
-    top: 0;
-    right: 0;
-
     // Childes styles 
     #new-task-btn{
         background-color: $bgGoldColor;
@@ -59,5 +55,97 @@ header{
             color: $bgGoldColor ;
         }
     }
-   
+}
+
+
+
+/*----------------------- 
+    Start Task Progress
+-------------------------*/
+.task-progress{
+    background-color: $bgSecondaryColor;
+    border-radius: 35px;
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    -ms-border-radius: 35px;
+    -o-border-radius: 35px;
+
+    // Childs
+    .icon{
+        width: 70px;
+        height: 70px;
+        border-radius: 25px;
+        -webkit-border-radius: 25px;
+        -moz-border-radius: 25px;
+        -ms-border-radius: 25px;
+        -o-border-radius: 25px;
+        border:3px solid $textMuted;
+        color: $bgGoldColor;
+        font-size: 1.8em;
+    }
+    .body span{
+        color: $textMuted;
+        font-weight: 400;
+    }
+    .circle{
+        width: 75px; 
+        height: 75px;
+        position: relative;
+
+
+    }
+    .circle svg{
+        width: 100%;
+        height: 100%;
+        transform: rotate(-90deg);
+        -webkit-transform: rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+        -o-transform: rotate(-90deg);
+    }
+    .circle svg circle{
+        fill: none;
+        stroke-width: 8px;
+        transform: translate(4px,4px);
+        -webkit-transform: translate(4px,4px);
+        -moz-transform: translate(4px,4px);
+        -ms-transform: translate(4px,4px);
+        -o-transform: translate(4px,4px);
+        stroke: gold;
+        stroke-dasharray: 200.8;
+        stroke-dashoffset: 200.8;
+        stroke-linecap: round;
+    }
+    .circle svg circle:nth-child(1){
+        stroke-dashoffset: 0;
+        stroke: $textMuted;
+    }
+    .circle svg circle:nth-child(2){
+        stroke-dashoffset: calc(200.8 - (196 * 50) / 100);
+        stroke: rgb(73, 180, 175);
+    }
+    .circle .number{
+        position: absolute;
+        font-weight: bold;
+    }
+}
+#in-progress-tasks{
+    .circle svg circle:nth-child(2){
+        stroke-dashoffset: calc(200.8 - (196 * 22) / 100);
+        stroke: rgb(149, 130, 233);
+    }
+}
+
+
+
+/*----------------------- 
+    Start Task List
+-------------------------*/
+#task-list{
+    background-color: $bgSecondaryColor;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
 }

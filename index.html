@@ -27,7 +27,70 @@
                 <span class="mr-2">New Task</span>
            </button>
         </header>
-        
+        <!----------------------- 
+            Start Task Progress
+        ------------------------->
+        <div class="row mt-3">
+            <!-- Completed tasks  -->
+            <div class="col-lg-6 px-3 my-3">
+                <div id="completed-tasks" class="task-progress d-flex align-items-center justify-content-between px-3 py-4 py-lg-4 px-lg-4">
+                    <div class="body d-flex align-items-center">
+                        <div class="icon mr-3 d-flex align-items-center justify-content-center">
+                            <i class="fa-duotone fa-calendar-check"></i>
+                        </div>
+                        <div class="">
+                            <p class="h5 font-weight-bold">12 Tasks</p>
+                            <span class="ml-1"> Completed </span>
+                        </div>
+                    </div>
+                    <div class="progress-circle">
+                        <div class="circle d-flex align-items-center justify-content-center" id="complated-progress">
+                            <svg>
+                                <circle cx="32" cy="32" r="32"></circle>
+                                <circle cx="32" cy="32" r="32"></circle>
+                            </svg>
+                            <div class="number">50%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- In progress tasks -->
+            <div class="col-lg-6 px-3 my-3">
+                <div id="in-progress-tasks" class="task-progress d-flex align-items-center justify-content-between px-3 py-4 py-lg-4 px-lg-4">
+                    <div class="body d-flex align-items-center">
+                        <div class="icon mr-3 d-flex align-items-center justify-content-center">
+                            <i class="fa-duotone fa-calendar-clock"></i>
+                        </div>
+                        <div class="">
+                            <p class="h5 font-weight-bold">4 Tasks</p>
+                            <span class="ml-1"> In progress </span>
+                        </div>
+                    </div>
+                    <div class="progress-circle">
+                        <div class="circle d-flex align-items-center justify-content-center" id="complated-progress">
+                            <svg>
+                                <circle cx="32" cy="32" r="32"></circle>
+                                <circle cx="32" cy="32" r="32"></circle>
+                            </svg>
+                            <div class="number">22%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!----------------------- 
+            Start Task List
+        ------------------------->
+        <div class="row mt-3">
+            <div class="col-12">
+                <div id="task-list">
+                    <div class="header d-flex align-items-center justify-content-between p-3 p-lg-4">
+                        <h5>My Tasks</h5>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- Container End -->
     
