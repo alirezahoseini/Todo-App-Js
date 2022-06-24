@@ -1,4 +1,5 @@
-
+// Import Classes
+const html= new Html();
 
 
 
@@ -26,8 +27,12 @@ function newTask(){
           container = document.querySelector('.container'),
           closeBtn = document.querySelector('.close-btn');
 
-    // open and close form
+    // functions 
     openAndCloseForm();
+    formValidation();
+
+
+    // open and close form
     function openAndCloseForm(){
         // set click event on new task button
         newTaskBtn.addEventListener('click', () => {
@@ -48,5 +53,39 @@ function newTask(){
             container.classList.remove('blur');
             newTaskForm.classList.remove('active');
         });
+    }
+
+    // form validation
+    function formValidation(){
+        newTaskForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            // access to the form inputs
+            const title =  newTaskForm.querySelector('#title'),
+                  description = newTaskForm.querySelector('#description'),
+                  categories = newTaskForm.querySelectorAll('input[type="checkbox"]:checked'),
+                  priority = newTaskForm.querySelector('input[name="priority"]:checked');
+
+            // validattion title
+            if(title.value == null || title.value == '' || title.value == ' '){
+                html.showMessage('Please Enter a Titel');
+                // validattion categories
+            } else if(categories.length == 0){
+                html.showMessage('Please Select a Category');
+                // validattion priority
+            } else if(priority == null){
+                html.showMessage('Please Select a Priority');
+            }else {
+                // Created New Task
+                createdNewTask(title.value, categories, priority.getAttribute('id'), description.value);
+            }
+        })
+    }
+
+    // Created New Task
+    function createdNewTask(title, categories, priority, description){
+        console.log(title);
+        console.log(categories);
+        console.log(priority);
+        console.log(description);
     }
 }

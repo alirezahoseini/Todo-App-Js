@@ -142,7 +142,6 @@ header{
 }
 
 
-
 /*----------------------- 
     Start Task List
 -------------------------*/
@@ -154,13 +153,80 @@ header{
     -ms-border-radius: 30px;
     -o-border-radius: 30px;
 
-    .inputs i {
-        font-size: 1.3em;
+    .icons i {
+        font-size: 1.2em;
         color: rgb(255, 255, 255);
         cursor: pointer;
     }
+    .checkbox-container{
+        width: 30px;
+        height: 30px;
+        @include borderRadius(10px);
+
+        .checkmark{
+            width: 30px;
+            height: 30px;
+            @include borderRadius(10px);
+        }
+
+    }
+    .category{
+        font-size: .9em;
+        color: $textMuted;
+    }
+    .description{
+        color: $textColor;
+        display: none;
+        opacity: 0;
+        @include transform(translateY(-20px));
+        @include transition(.2s);
+    }
+    .description.active{
+        display: block;
+        opacity: 1;
+        @include transform(translateY(0px));
+    }
+    
 }
 
+
+/*----------------------- 
+    Start Message Box
+-------------------------*/
+#message-box{
+    position: fixed;
+    top: 0;
+    right: 0;
+    @include transform(translatY(-50%));
+    width: 100%;
+    height: 100vh;
+    z-index: 25;
+    pointer-events: none;
+    height: 50px;
+
+    .message{
+        @include transform(translateY(100px));
+        @include borderRadius(20px);
+        @include transition(.3s);
+        opacity: 0;
+    }
+    .message.show{
+        @include transform(translateY(0px));
+        opacity: 1;
+    }
+    .message.hidden{
+        @include transform(translateY(-100px));
+        opacity: 0;
+    }
+    .icon{
+        width: 50px;
+        height: 50px;
+        border: 2px solid white;
+        @include borderRadius(15px);
+        font-size: 1.5em;
+    }
+    
+}
 
 
 /*----------------------- 
@@ -188,7 +254,7 @@ header{
     form{
         background-color: $bgDarkColor;
         @include borderRadius(20px);
-        @include transform(translateY(100px));
+        @include transform(translateY(30px));
         @include transition(.3s);
         z-index: 5;
     }
@@ -263,6 +329,9 @@ header{
         &:focus{
             border-color: $textMuted;
         }
+    }
+    .optional{
+        font-size: .8em;
     }
     #add-to-btn{
         background-color: $bgGoldColor;
@@ -339,7 +408,7 @@ header{
         color: transparent;
         padding-left: 1px;
         @include borderRadius(5px);
-        @include transition(.2s);
+        @include transition(.1s ease-in);
     }
     input:checked ~ .checkmark{
         color: $textColor;
