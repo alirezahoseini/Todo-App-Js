@@ -17,6 +17,11 @@ body{
 .container{
     color: $textColor;
 }
+.container.blur{
+    filter: blur(5px) ;
+    -webkit-filter: blur(5px);
+    opacity: .8;
+}
 
 
 
@@ -148,4 +153,196 @@ header{
     -moz-border-radius: 30px;
     -ms-border-radius: 30px;
     -o-border-radius: 30px;
+
+    .inputs i {
+        font-size: 1.3em;
+        color: rgb(255, 255, 255);
+        cursor: pointer;
+    }
+}
+
+
+
+/*----------------------- 
+    Start New Task Form
+-------------------------*/
+#new-task-form{
+    z-index: 1;
+    top: 0;
+    right: 0;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    @include transition(.3s);
+    @include mediaMaxWidth(768px){
+        font-size: .9em;
+    }
+
+    .background-blur{
+        width: 100%;
+        top: 0;
+        right: 0;
+        z-index: 0;
+        // background-color: $bgSecondary50;
+    }
+    form{
+        background-color: $bgDarkColor;
+        @include borderRadius(20px);
+        @include transform(translateY(100px));
+        @include transition(.3s);
+        z-index: 5;
+    }
+}
+#new-task-form.active{
+    visibility: visible;
+    opacity: 1;
+    pointer-events: all;
+
+    form{
+        @include transform(translateY(0px));
+    }
+}
+#new-task-form form{
+    .header i{
+        font-size: 1.3em;
+        cursor: pointer;
+
+        &:hover{
+            opacity: .7;
+        }
+    }
+    input{
+        border: 0;
+        outline: none;
+    }
+    label{
+        cursor: pointer;
+    }
+    #title{
+        background-color: transparent;
+        color: #fff !important;
+        @include transition(.2s);
+        border-bottom: 2px solid rgba(255, 255, 255, 0);
+        
+        &:focus{
+            border-color: rgba(255, 255, 255, 0.356);
+        }
+
+    }
+    .task-category{
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    #new-category-btn{
+        background-color: transparent;
+        color: $bgBlueColor;
+        outline: none;
+        border: 3px solid $bgBlueColor;
+        font-size: .8em;
+        padding: 5px 8px;
+        @include borderRadius(10px);
+        @include transition(.3s);
+
+        &:hover{
+            background-color: $bgBlueColor;
+            color: $textColor;
+        }
+    }
+    #description{
+        width: 100%;
+        min-height: 100px;
+        max-height: 400px;
+        background-color: transparent;
+        color: $textColor;
+        @include borderRadius(20px);
+        @include transition(.3s);
+        border: 3px solid rgba(255, 255, 255, 0.068);
+        outline: 0;
+
+        &:focus{
+            border-color: $textMuted;
+        }
+    }
+    #add-to-btn{
+        background-color: $bgGoldColor;
+        @include borderRadius(15px);
+        border: 3px solid transparent;
+        @include transition (.3s);
+
+        &:hover{
+            background-color: $bgDarkColor;
+            border-color: $bgGoldColor;
+            color: $bgGoldColor;
+        }
+
+        i{
+            transform: translateY(1px);
+            -webkit-transform: translateY(1px);
+            -moz-transform: translateY(1px);
+            -ms-transform: translateY(1px);
+            -o-transform: translateY(1px);
+        }
+    }
+}
+#task-priority{
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+    input{
+        display: none;
+    }
+    label{
+        @include transition(.3s);
+        border: 3px solid transparent;
+        padding: 0 15px 2px 15px;
+    }
+    #high:checked ~ label{
+        background-color: $successColor;
+        color: white;
+    }
+    #medium:checked ~ label{
+        background-color: $warrningColor;
+        color: white;
+    }
+    #low:checked ~ label{
+        background-color: $dangerColor;
+        color: white;
+    }
+}
+.checkbox-container{
+    width: 20px;
+    height: 20px;
+    border: 2px solid $textMuted;
+    @include borderRadius(5px);
+    cursor: pointer;
+    position: relative;
+    // overflow: hidden;
+
+    input{
+        display: inline-block;
+        width: 90%;
+        height: 90%;
+        opacity: 0;
+        cursor: pointer;
+    }
+    .checkmark{
+        width: 21px;
+        height: 21px;
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        pointer-events: none;
+        cursor: pointer;
+        font-size: .8em;
+        color: transparent;
+        padding-left: 1px;
+        @include borderRadius(5px);
+        @include transition(.2s);
+    }
+    input:checked ~ .checkmark{
+        color: $textColor;
+        background-color: $bgBlueColor;
+    }
 }

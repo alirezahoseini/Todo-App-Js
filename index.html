@@ -14,6 +14,7 @@
 </head>
 <body>
 
+
     <!-- Container start -->
     <div class="container">
 
@@ -27,6 +28,7 @@
                 <span class="mr-2">New Task</span>
            </button>
         </header>
+
         <!----------------------- 
             Start Task Progress
         ------------------------->
@@ -84,16 +86,125 @@
         <div class="row mt-3">
             <div class="col-12">
                 <div id="task-list">
-                    <div class="header d-flex align-items-center justify-content-between p-3 p-lg-4">
-                        <h5>My Tasks</h5>
-
+                    <div class="header d-flex align-items-center justify-content-between p-3 p-lg-3 row">
+                        <h5 class="col-3">My Tasks</h5>
+                        <div class="inputs d-flex align-items-center col-3 col-md-2">
+                            <div class="input-group d-flex align-items-center">
+                                <i class="fa-duotone fa-search"></i>
+                                <input type="text" name="search" id="search" placeholder="Search Task..." class="d-none">
+                            </div>
+                            <div class="input-group d-flex align-items-center">
+                                <i class="fa-duotone fa-filter d-inline-block"></i>
+                                <select name="sort-tasks" id="sort-tasks" class="d-none">
+                                    <option value="none" disabled>Sort By ....</option>
+                                    <option value="none">Newsted</option>
+                                    <option value="none">Olded</option>
+                                    <option value="none">Pridri</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
     <!-- Container End -->
-    
+    <!------------------------ 
+        Start Add New Task Form
+    -------------------------->
+    <div id="new-task-form" class="d-flex align-items-center justify-content-center position-absolute mx-0 px-0 w-100 h-100">
+        <div class="row w-100">
+            <form class="col-11 col-md-8 col-lg-5 mx-auto px-4 py-3">
+                <!-- Start Header  -->
+                <div class="header text-white d-flex align-items-center justify-content-between mb-5">
+                    <p class="h5 mt-1">Add New Task</p>
+                    <i class="fa-duotone fa-x close-btn"></i>
+                </div>
+                <!-- End of Header  -->
+                <input type="text" id="title" name="title" placeholder="Write the task here..." class="h6 w-100 p-2">
+                <!-- Start Task Category  -->
+                <p class="h6 text-white mt-3 mb-3 mb-lg-2">Category:</p>
+                <div class="task-category mt-1 mb-2 d-flex align-items-center">
+                    <div class="checkbox-group text-white-50 d-flex align-items-center mx-2">
+                        <div class="checkbox-container p-0 d-flex align-items-center justify-content-center mr-2 mb-2">
+                            <input type="checkbox" name="game" id="game">
+                            <div class="checkmark d-flex align-items-center justify-content-center">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                        </div>
+                        <label for="game">Game</label>
+                    </div>
+                    <div class="checkbox-group text-white-50 d-flex align-items-center mx-2">
+                        <div class="checkbox-container p-0 d-flex align-items-center justify-content-center mr-2 mb-2">
+                            <input type="checkbox" name="Job" id="Job">
+                            <div class="checkmark d-flex align-items-center justify-content-center">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                        </div>
+                        <label for="Job">Job</label>
+                    </div>
+                    <div class="checkbox-group text-white-50 d-flex align-items-center mx-2">
+                        <div class="checkbox-container p-0 d-flex align-items-center justify-content-center mr-2 mb-2">
+                            <input type="checkbox" name="Travel" id="Travel">
+                            <div class="checkmark d-flex align-items-center justify-content-center">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                        </div>
+                        <label for="Travel">Travel</label>
+                    </div>
+                    <div class="checkbox-group text-white-50 d-flex align-items-center mx-2">
+                        <div class="checkbox-container p-0 d-flex align-items-center justify-content-center mr-2 mb-2">
+                            <input type="checkbox" name="sport" id="sport">
+                            <div class="checkmark d-flex align-items-center justify-content-center">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                        </div>
+                        <label for="sport">Sport</label>
+                    </div>
+                    <button type="button" id="new-category-btn" class="mt-2 ml-2 mb-3">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Add New</span>
+                    </button>
+                </div>
+                <!-- End of Task Category  -->
+                <!-- Start Task Priority -->
+                <p class="h6 text-white">
+                    Select Priority:
+                </p>
+                <div id="task-priority" class="d-flex align-items-center mb-2">
+                    <div class="priority-option text-success m-2">
+                        <input type="radio" name="priority" value="high" id="high">
+                        <label for="high" class="rounded-pill border-success">
+                        <span>High</span>
+                        </label>
+                    </div>
+                    <div class="priority-option text-warning m-2">
+                        <input type="radio" name="priority" value="medium" id="medium">
+                        <label for="medium" class="rounded-pill border-warning">
+                        <span>Medium</span>
+                        </label>
+                    </div>
+                    <div class="priority-option text-danger m-2">
+                        <input type="radio" name="priority" value="low" id="low">
+                        <label for="low" class="rounded-pill border-danger">
+                            <span>Low</span>
+                        </label>
+                    </div>
+                </div>
+                <!-- End of Task Priority  -->
+                <!-- Start Task Description -->
+                <label for="description" class="h6 text-white d-block">Description:</label>
+                <textarea name="description" id="description"  placeholder="Task Description..." maxlength="150" class="p-2 mt-2"></textarea>
+                <!-- End of Task Description -->
+                <button id="add-to-btn" type="submit" class="w-100 mt-3 mb-2 py-2">
+                    <span>Add To List</span>
+                    <i class="fa-duotone fa-right ml-1"></i>
+                </button>
+            </form>
+        </div>
+        <div class="background-blur w-100 h-100 position-absolute"></div>
+    </div>
     <!-- scripts -->
     <script src="./js/main.js"></script>
 
