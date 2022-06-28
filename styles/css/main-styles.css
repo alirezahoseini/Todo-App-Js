@@ -14,6 +14,12 @@ body {
 
 .container {
   color: rgb(245, 245, 245);
+  font-size: 14px !important;
+}
+@media screen and (max-width: 786px) {
+  .container {
+    font-size: 14px;
+  }
 }
 
 .container.blur {
@@ -66,16 +72,16 @@ header #new-task-btn:hover {
   -o-border-radius: 35px;
 }
 .task-progress .icon {
-  width: 70px;
-  height: 70px;
-  border-radius: 25px;
-  -webkit-border-radius: 25px;
-  -moz-border-radius: 25px;
-  -ms-border-radius: 25px;
-  -o-border-radius: 25px;
-  border: 3px solid #636363;
+  width: 60px;
+  height: 60px;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  border: 2px solid #636363;
   color: rgb(255, 187, 0);
-  font-size: 1.8em;
+  font-size: 1.6em;
 }
 .task-progress .body span {
   color: #636363;
@@ -280,7 +286,7 @@ header #new-task-btn:hover {
   right: 0;
   z-index: 0;
 }
-#new-task-form form {
+#new-task-form #created-new-task {
   background-color: #1e1b2e;
   border-radius: 20px;
   -webkit-border-radius: 20px;
@@ -313,21 +319,21 @@ header #new-task-btn:hover {
   -o-transform: translateY(0px);
 }
 
-#new-task-form form .header i {
+#new-task-form #created-new-task .header i {
   font-size: 1.3em;
   cursor: pointer;
 }
-#new-task-form form .header i:hover {
+#new-task-form #created-new-task .header i:hover {
   opacity: 0.7;
 }
-#new-task-form form input {
+#new-task-form #created-new-task input {
   border: 0;
   outline: none;
 }
-#new-task-form form label {
+#new-task-form #created-new-task label {
   cursor: pointer;
 }
-#new-task-form form #title {
+#new-task-form #created-new-task #title {
   background-color: transparent;
   color: #fff !important;
   transition: 0.2s;
@@ -337,19 +343,19 @@ header #new-task-btn:hover {
   -o-transition: 0.2s;
   border-bottom: 2px solid rgba(255, 255, 255, 0);
 }
-#new-task-form form #title:focus {
+#new-task-form #created-new-task #title:focus {
   border-color: rgba(255, 255, 255, 0.356);
 }
-#new-task-form form .task-category {
+#new-task-form #created-new-task .task-categories {
   width: 100%;
   flex-direction: row;
   flex-wrap: wrap;
 }
-#new-task-form form #new-category-btn {
+#new-task-form #created-new-task #new-category-btn {
   background-color: transparent;
   color: rgb(0, 162, 255);
   outline: none;
-  border: 3px solid rgb(0, 162, 255);
+  border: 2px solid rgb(0, 162, 255);
   font-size: 0.8em;
   padding: 5px 8px;
   border-radius: 10px;
@@ -363,11 +369,11 @@ header #new-task-btn:hover {
   -ms-transition: 0.3s;
   -o-transition: 0.3s;
 }
-#new-task-form form #new-category-btn:hover {
+#new-task-form #created-new-task #new-category-btn:hover {
   background-color: rgb(0, 162, 255);
   color: rgb(245, 245, 245);
 }
-#new-task-form form #description {
+#new-task-form #created-new-task #description {
   width: 100%;
   min-height: 100px;
   max-height: 400px;
@@ -383,35 +389,35 @@ header #new-task-btn:hover {
   -moz-transition: 0.3s;
   -ms-transition: 0.3s;
   -o-transition: 0.3s;
-  border: 3px solid rgba(255, 255, 255, 0.068);
+  border: 2px solid rgba(255, 255, 255, 0.068);
   outline: 0;
 }
-#new-task-form form #description:focus {
+#new-task-form #created-new-task #description:focus {
   border-color: #636363;
 }
-#new-task-form form .optional {
+#new-task-form #created-new-task .optional {
   font-size: 0.8em;
 }
-#new-task-form form #add-to-btn {
+#new-task-form #created-new-task #add-to-btn {
   background-color: rgb(255, 187, 0);
   border-radius: 15px;
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
   -ms-border-radius: 15px;
   -o-border-radius: 15px;
-  border: 3px solid transparent;
+  border: 2px solid transparent;
   transition: 0.3s;
   -webkit-transition: 0.3s;
   -moz-transition: 0.3s;
   -ms-transition: 0.3s;
   -o-transition: 0.3s;
 }
-#new-task-form form #add-to-btn:hover {
+#new-task-form #created-new-task #add-to-btn:hover {
   background-color: #1e1b2e;
   border-color: rgb(255, 187, 0);
   color: rgb(255, 187, 0);
 }
-#new-task-form form #add-to-btn i {
+#new-task-form #created-new-task #add-to-btn i {
   transform: translateY(1px);
   -webkit-transform: translateY(1px);
   -moz-transform: translateY(1px);
@@ -423,6 +429,7 @@ header #new-task-btn:hover {
   width: 100%;
   flex-direction: row;
   flex-wrap: wrap;
+  font-size: 0.9em;
 }
 #task-priority input {
   display: none;
@@ -433,8 +440,8 @@ header #new-task-btn:hover {
   -moz-transition: 0.3s;
   -ms-transition: 0.3s;
   -o-transition: 0.3s;
-  border: 3px solid transparent;
-  padding: 0 15px 2px 15px;
+  border: 2px solid transparent;
+  padding: 2px 15px 2px 15px;
 }
 #task-priority #high:checked ~ label {
   background-color: #28a745;
@@ -493,6 +500,114 @@ header #new-task-btn:hover {
 .checkbox-container input:checked ~ .checkmark {
   color: rgb(245, 245, 245);
   background-color: rgb(0, 162, 255);
+}
+
+/*----------------------- 
+    Start New Category
+-------------------------*/
+#categories-form {
+  z-index: 15;
+  top: 0;
+  right: 0;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+}
+@media screen and (max-width: 768px) {
+  #categories-form {
+    font-size: 0.9em;
+  }
+}
+#categories-form .background-blur {
+  width: 100%;
+  top: 0;
+  right: 0;
+  z-index: -1;
+}
+#categories-form #categories-section {
+  background-color: #1e1b2e !important;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+  z-index: 5;
+}
+
+#categories-form.active {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: all;
+}
+
+#categories-section .header i {
+  font-size: 1.3em;
+  cursor: pointer;
+}
+#categories-section .header i:hover {
+  opacity: 0.7;
+}
+#categories-section input {
+  border: 0;
+  outline: none;
+}
+#categories-section label {
+  cursor: pointer;
+}
+#categories-section form h6 {
+  font-size: 0.8em;
+}
+#categories-section form .input-group {
+  border-bottom: 2px solid #636363;
+}
+#categories-section form input {
+  padding: 5px;
+  background-color: transparent;
+  color: rgb(245, 245, 245);
+  width: 80%;
+}
+#categories-section form button {
+  width: 18%;
+  background-color: rgb(255, 187, 0);
+  padding: 0px 5px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  transition: 0.2s;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
+}
+#categories-section form button:hover {
+  background-color: rgb(255, 153, 0);
+}
+#categories-section #category-list .category-option {
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  background-color: #232033;
+}
+#categories-section #category-list .category-option i {
+  cursor: pointer;
+  color: rgb(255, 79, 79);
+}
+#categories-section #category-list .category-option i:hover {
+  color: rgb(235, 17, 17);
 }
 
 /*# sourceMappingURL=main-styles.css.map */

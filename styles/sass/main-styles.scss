@@ -16,6 +16,10 @@ body{
 }
 .container{
     color: $textColor;
+    font-size: 14px !important;
+    @include  mediaMaxWidth(786px){
+        font-size: 14px;
+    }
 }
 .container.blur{
     filter: blur(5px) ;
@@ -77,16 +81,16 @@ header{
 
     // Childs
     .icon{
-        width: 70px;
-        height: 70px;
-        border-radius: 25px;
-        -webkit-border-radius: 25px;
-        -moz-border-radius: 25px;
-        -ms-border-radius: 25px;
-        -o-border-radius: 25px;
-        border:3px solid $textMuted;
+        width: 60px;
+        height: 60px;
+        border-radius: 20px;
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        -ms-border-radius: 20px;
+        -o-border-radius: 20px;
+        border:2px solid $textMuted;
         color: $bgGoldColor;
-        font-size: 1.8em;
+        font-size: 1.6em;
     }
     .body span{
         color: $textMuted;
@@ -251,7 +255,7 @@ header{
         z-index: 0;
         // background-color: $bgSecondary50;
     }
-    form{
+    #created-new-task{
         background-color: $bgDarkColor;
         @include borderRadius(20px);
         @include transform(translateY(30px));
@@ -268,7 +272,7 @@ header{
         @include transform(translateY(0px));
     }
 }
-#new-task-form form{
+#new-task-form #created-new-task{
     .header i{
         font-size: 1.3em;
         cursor: pointer;
@@ -295,7 +299,7 @@ header{
         }
 
     }
-    .task-category{
+    .task-categories{
         width: 100%;
         flex-direction: row;
         flex-wrap: wrap;
@@ -304,7 +308,7 @@ header{
         background-color: transparent;
         color: $bgBlueColor;
         outline: none;
-        border: 3px solid $bgBlueColor;
+        border: 2px solid $bgBlueColor;
         font-size: .8em;
         padding: 5px 8px;
         @include borderRadius(10px);
@@ -323,7 +327,7 @@ header{
         color: $textColor;
         @include borderRadius(20px);
         @include transition(.3s);
-        border: 3px solid rgba(255, 255, 255, 0.068);
+        border: 2px solid rgba(255, 255, 255, 0.068);
         outline: 0;
 
         &:focus{
@@ -336,7 +340,7 @@ header{
     #add-to-btn{
         background-color: $bgGoldColor;
         @include borderRadius(15px);
-        border: 3px solid transparent;
+        border: 2px solid transparent;
         @include transition (.3s);
 
         &:hover{
@@ -358,14 +362,15 @@ header{
     width: 100%;
     flex-direction: row;
     flex-wrap: wrap;
+    font-size: .9em;
     
     input{
         display: none;
     }
     label{
         @include transition(.3s);
-        border: 3px solid transparent;
-        padding: 0 15px 2px 15px;
+        border: 2px solid transparent;
+        padding: 2px 15px 2px 15px;
     }
     #high:checked ~ label{
         background-color: $successColor;
@@ -413,5 +418,96 @@ header{
     input:checked ~ .checkmark{
         color: $textColor;
         background-color: $bgBlueColor;
+    }
+}
+
+
+
+/*----------------------- 
+    Start New Category
+-------------------------*/
+#categories-form{
+    z-index: 15;
+    top: 0;
+    right: 0;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    @include transition(.3s);
+    @include mediaMaxWidth(768px){
+        font-size: .9em;
+    }
+
+    .background-blur{
+        width: 100%;
+        top: 0;
+        right: 0;
+        z-index: -1;
+        // background-color: $bgSecondary50;
+    }
+    #categories-section{
+        background-color: $bgDarkColor !important;
+        @include borderRadius(20px);
+        // @include transform(translateY(30px));
+        @include transition(.3s);
+        z-index: 5;
+    }
+}
+#categories-form.active{
+    visibility: visible;
+    opacity: 1;
+    pointer-events: all;
+}
+#categories-section{
+    .header i{
+        font-size: 1.3em;
+        cursor: pointer;
+        &:hover{
+            opacity: .7;
+        }
+    }
+    input{
+        border: 0;
+        outline: none;
+    }
+    label{
+        cursor: pointer;
+    }
+    form h6{
+        font-size: .8em;
+    }
+    form .input-group{
+        border-bottom: 2px solid $textMuted;
+    }
+    form input{
+        padding: 5px;
+        background-color: transparent;
+        color: $textColor;
+        width: 80%;
+    }
+    form button{
+        width: 18%;
+        background-color: $bgGoldColor;
+        padding: 0px 5px;
+        @include borderRadius(5px);
+        @include transition(.2s);
+
+        &:hover{
+            background-color: rgb(255, 153, 0);
+        }
+    }
+
+    #category-list .category-option{
+        @include borderRadius(10px);
+        background-color: $bgSecondaryColor;
+
+        i{
+            cursor: pointer;
+            color: rgb(255, 79, 79);
+
+            &:hover{
+                color: rgb(235, 17, 17);
+            }
+        }
     }
 }
