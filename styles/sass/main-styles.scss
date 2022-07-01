@@ -36,26 +36,19 @@ header{
     // Childes styles 
     #new-task-btn{
         background-color: $bgGoldColor;
-        border-radius: 15px;
-        -webkit-border-radius: 15px;
-        -moz-border-radius: 15px;
-        -ms-border-radius: 15px;
-        -o-border-radius: 15px;
+        @include borderRadius(15px);
         color: $bgDarkColor;
-        width: 130px;
+        width: 120px;
         font-weight: 500;
         padding: 8px ;
-        transition: .4s;
-        -webkit-transition: .4s;
-        -moz-transition: .4s;
-        -ms-transition: .4s;
-        -o-transition: .4s;
+        @include transition(.3s);
         border: 3px solid transparent;
         @include mediaMinWidth(500px){
             span{
                 margin-bottom: 1px;
             }
         }
+
         
 
         &:hover{
@@ -93,6 +86,7 @@ header{
         font-size: 1.6em;
     }
     .body span{
+        font-size: .9em;
         color: $textMuted;
         font-weight: 400;
     }
@@ -157,40 +151,110 @@ header{
     -ms-border-radius: 30px;
     -o-border-radius: 30px;
 
+    .title{
+        word-break: break-all;
+    }
+    .list-option{
+        border-bottom: 1px solid rgba(255, 255, 255, 0.041);
+    }
     .icons i {
         font-size: 1.2em;
         color: rgb(255, 255, 255);
         cursor: pointer;
     }
-    .checkbox-container{
+    .icons #optionBtn{
         width: 30px;
         height: 30px;
-        @include borderRadius(10px);
-
-        .checkmark{
-            width: 30px;
-            height: 30px;
-            @include borderRadius(10px);
-        }
-
+        font-size: 1.5em;
+        color: rgba(255, 255, 255, 0.829);
     }
     .category{
         font-size: .9em;
         color: $textMuted;
     }
-    .description{
-        color: $textColor;
-        display: none;
-        opacity: 0;
-        @include transform(translateY(-20px));
+    .optionBox{
+        position: absolute;
+        top:  5px;
+        right: 0px;
+        background-color: rgb(53, 53, 53);
+        min-width: 100px;
+        @include borderRadius(7px);
         @include transition(.2s);
+        z-index: 5;
+        opacity: 0;
+        visibility: hidden;
+
+        .fa-duotone{
+            font-size: .9em;
+        }
     }
-    .description.active{
-        display: block;
+    .optionBox.active{
+        top: 22px;
+        right: 5px;
         opacity: 1;
-        @include transform(translateY(0px));
+        visibility: visible;
+    }
+    .optionBox div{
+        padding: 5px 6px;
+        @include borderRadius(7px);
+        cursor: pointer;
+        &:hover{
+            background-color: rgb(32, 32, 32);
+        }
+    }
+    .priority{
+        padding: 2px 8px;
+        @include borderRadius(5px);
+        font-weight: bold;
+        font-size: .83em;
+    }
+    .priority.High{
+        background-color: rgba(0, 89, 255, 0.158);
+        color: rgb(0, 108, 248);
+    }
+    .priority.Medium{
+        background-color: rgba(255, 177, 74, 0.103);
+        color: rgb(255, 115, 0);
+    }
+    .priority.Low{
+        background-color: rgba(255, 0, 0, 0.082);
+        color: rgb(255, 30, 30);
     }
     
+}
+.checkbox-container{
+    width: 30px;
+    height: 30px;
+    border: 2px solid $textMuted;
+    @include borderRadius(10px);
+    cursor: pointer;
+    position: relative;
+
+    input{
+        display: inline-block;
+        width: 90%;
+        height: 90%;
+        opacity: 0;
+        cursor: pointer;
+    }
+    .checkmark{
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        pointer-events: none;
+        cursor: pointer;
+        font-size: .8em;
+        color: transparent;
+        padding-left: 1px;
+        @include borderRadius(10px);
+        @include transition(.1s ease-in);
+    }
+    input:checked ~ .checkmark{
+        color: $textColor;
+        background-color: $bgDarkBlueColor;
+    }
 }
 
 
@@ -211,7 +275,7 @@ header{
     .message{
         @include transform(translateY(100px));
         @include borderRadius(20px);
-        @include transition(.3s);
+        @include transition(.2s);
         opacity: 0;
     }
     .message.show{
@@ -237,42 +301,44 @@ header{
     Start New Task Form
 -------------------------*/
 #new-task-form{
+    position: fixed;
     z-index: 1;
-    top: 0;
+    bottom: 0;
     right: 0;
     visibility: hidden;
     opacity: 0;
     pointer-events: none;
-    @include transition(.3s);
-    @include mediaMaxWidth(768px){
-        font-size: .9em;
-    }
+    @include transition(.2s);
 
     .background-blur{
         width: 100%;
+        height: 100%;
         top: 0;
         right: 0;
         z-index: 0;
-        // background-color: $bgSecondary50;
-    }
-    #created-new-task{
-        background-color: $bgDarkColor;
-        @include borderRadius(20px);
-        @include transform(translateY(30px));
-        @include transition(.3s);
-        z-index: 5;
     }
 }
 #new-task-form.active{
     visibility: visible;
     opacity: 1;
     pointer-events: all;
-
+    background-color: rgba(153, 153, 153, 0);
     form{
+        @include transform(translateY(0px));
+    }
+    #created-new-task{
+        background-color: $bgWhite;
         @include transform(translateY(0px));
     }
 }
 #new-task-form #created-new-task{
+    @include transform(translateY(100px));
+    @include transition(.2s);
+    @include borderRadius(25px);
+    min-height: 20vh;
+    z-index: 5;
+
+
     .header i{
         font-size: 1.3em;
         cursor: pointer;
@@ -287,15 +353,21 @@ header{
     }
     label{
         cursor: pointer;
+        color: rgb(121, 121, 121);
+        font-weight: 450;
     }
     #title{
-        background-color: transparent;
-        color: #fff !important;
+        background-color: $grayColor;
+        color: rgb(12, 12, 12) !important;
         @include transition(.2s);
-        border-bottom: 2px solid rgba(255, 255, 255, 0);
+        border: 1px solid rgb(212, 212, 212);
+        padding: 15px;
+        @include borderRadius(15px);
+        font-size: .9em;
+        
         
         &:focus{
-            border-color: rgba(255, 255, 255, 0.356);
+            border-color: rgb(170, 170, 170);
         }
 
     }
@@ -306,36 +378,18 @@ header{
     }
     #new-category-btn{
         background-color: transparent;
-        color: $bgBlueColor;
+        color: $bgDarkBlueColor;
         outline: none;
-        border: 2px solid $bgBlueColor;
+        border: 1px solid $bgDarkBlueColor;
         font-size: .8em;
         padding: 5px 8px;
         @include borderRadius(10px);
         @include transition(.3s);
 
         &:hover{
-            background-color: $bgBlueColor;
+            background-color: $bgDarkBlueColor;
             color: $textColor;
         }
-    }
-    #description{
-        width: 100%;
-        min-height: 100px;
-        max-height: 400px;
-        background-color: transparent;
-        color: $textColor;
-        @include borderRadius(20px);
-        @include transition(.3s);
-        border: 2px solid rgba(255, 255, 255, 0.068);
-        outline: 0;
-
-        &:focus{
-            border-color: $textMuted;
-        }
-    }
-    .optional{
-        font-size: .8em;
     }
     #add-to-btn{
         background-color: $bgGoldColor;
@@ -344,9 +398,8 @@ header{
         @include transition (.3s);
 
         &:hover{
-            background-color: $bgDarkColor;
             border-color: $bgGoldColor;
-            color: $bgGoldColor;
+            background-color: $bgWhite;
         }
 
         i{
@@ -356,6 +409,23 @@ header{
             -ms-transform: translateY(1px);
             -o-transform: translateY(1px);
         }
+    }
+}
+.task-categories .radio-group{
+    input{
+        display: none;
+    }
+    label{
+        @include transition(.1s);
+        padding: 8px 25px;
+        background-color: $grayColor;
+        @include borderRadius(12px);
+        font-size: .8em;
+        font-weight: 700 !important;
+    }
+    input:checked ~ label{
+        background-color: $bgDarkColor;
+        color: white !important;
     }
 }
 #task-priority{
@@ -368,58 +438,27 @@ header{
         display: none;
     }
     label{
-        @include transition(.3s);
-        border: 2px solid transparent;
-        padding: 2px 15px 2px 15px;
+        padding: 8px 25px;
+        background-color: $grayColor;
+        @include borderRadius(12px);
+        font-size: .9em;
+        font-weight: bold !important;
+        @include transition(.2s);
     }
-    #high:checked ~ label{
-        background-color: $successColor;
-        color: white;
+    #High:checked ~ label{
+        background-color: rgb(219, 219, 255);
+        color: rgb(0, 0, 248);
     }
-    #medium:checked ~ label{
-        background-color: $warrningColor;
-        color: white;
+    #Medium:checked ~ label{
+        background-color: rgb(255, 244, 184);
+        color: rgb(255, 115, 0);
     }
-    #low:checked ~ label{
-        background-color: $dangerColor;
-        color: white;
+    #Low:checked ~ label{
+        background-color: rgb(255, 219, 219);
+        color: red;
     }
 }
-.checkbox-container{
-    width: 20px;
-    height: 20px;
-    border: 2px solid $textMuted;
-    @include borderRadius(5px);
-    cursor: pointer;
-    position: relative;
-    // overflow: hidden;
 
-    input{
-        display: inline-block;
-        width: 90%;
-        height: 90%;
-        opacity: 0;
-        cursor: pointer;
-    }
-    .checkmark{
-        width: 21px;
-        height: 21px;
-        position: absolute;
-        top: -2px;
-        right: -2px;
-        pointer-events: none;
-        cursor: pointer;
-        font-size: .8em;
-        color: transparent;
-        padding-left: 1px;
-        @include borderRadius(5px);
-        @include transition(.1s ease-in);
-    }
-    input:checked ~ .checkmark{
-        color: $textColor;
-        background-color: $bgBlueColor;
-    }
-}
 
 
 
@@ -427,38 +466,44 @@ header{
     Start New Category
 -------------------------*/
 #categories-form{
-    z-index: 15;
-    top: 0;
+    position: fixed;
+    bottom: 0;
     right: 0;
+    z-index: 15;
     visibility: hidden;
     opacity: 0;
     pointer-events: none;
-    @include transition(.3s);
-    @include mediaMaxWidth(768px){
-        font-size: .9em;
-    }
+    @include transition(.2s);
+
 
     .background-blur{
         width: 100%;
         top: 0;
         right: 0;
-        z-index: -1;
+        z-index: 1;
         // background-color: $bgSecondary50;
     }
-    #categories-section{
-        background-color: $bgDarkColor !important;
-        @include borderRadius(20px);
-        // @include transform(translateY(30px));
-        @include transition(.3s);
-        z-index: 5;
-    }
+
 }
 #categories-form.active{
     visibility: visible;
     opacity: 1;
     pointer-events: all;
+
+    #categories-section{
+        @include transform(translateY(0))
+    }
+    
 }
 #categories-section{
+    @include borderRadius(20px);
+    @include transform(translateY(100px));
+    @include transition(.3s);
+    z-index: 5;
+    background-color: $bgWhite;
+    min-height: 20vh;
+
+
     .header i{
         font-size: 1.3em;
         cursor: pointer;
@@ -466,40 +511,50 @@ header{
             opacity: .7;
         }
     }
-    input{
-        border: 0;
-        outline: none;
-    }
     label{
         cursor: pointer;
+        color: rgb(121, 121, 121) !important;
+        font-weight: 450;
     }
-    form h6{
-        font-size: .8em;
-    }
-    form .input-group{
-        border-bottom: 2px solid $textMuted;
-    }
-    form input{
-        padding: 5px;
-        background-color: transparent;
-        color: $textColor;
-        width: 80%;
+    input{
+        background-color: $grayColor;
+        color: rgb(12, 12, 12) ;
+        @include transition(.2s);
+        border: 1px solid rgb(212, 212, 212);
+        padding: 15px 60px 15px 15px;
+        @include borderRadius(15px);
+        font-size: .9em;
+        width: 100%;
+        outline: none;
+        
+        
+        &:focus{
+            border-color: rgb(170, 170, 170);
+        }
+
     }
     form button{
+        position: absolute;
+        top: 12px;
+        right: 15px;
         width: 18%;
         background-color: $bgGoldColor;
-        padding: 0px 5px;
-        @include borderRadius(5px);
+        padding: 5px;
+        margin-bottom: 3px;
+        @include borderRadius(11px);
         @include transition(.2s);
+        font-size: .9em;
 
         &:hover{
-            background-color: rgb(255, 153, 0);
+            background-color: rgb(255, 166, 32);
         }
     }
 
     #category-list .category-option{
         @include borderRadius(10px);
-        background-color: $bgSecondaryColor;
+        background-color: $grayColor;
+        font-size: .91em;
+        color: $bgDarkColor;
 
         i{
             cursor: pointer;
@@ -509,5 +564,33 @@ header{
                 color: rgb(235, 17, 17);
             }
         }
+    }
+}
+
+
+
+/*------------------------------------------ 
+ * * * * * * * *  Mobile Styles * * * * * * 
+------------------------------------------*/
+@include mediaMaxWidth(768px){
+    #new-task-form{
+        font-size: .9em;
+    }
+    #created-new-task{
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        @include borderRadius(40px 40px 0px 0px !important);
+    }
+    #categories-form{
+        font-size: .9em;
+        bottom: 0;
+    }
+    #categories-section{
+        @include borderRadius(40px 40px 0 0 !important);
+        min-height:20vh ;
+        position: fixed;
+        bottom: 0;
+        right: 0;
     }
 }

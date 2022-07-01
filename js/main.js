@@ -1,7 +1,9 @@
 // Import Classes
 const html= new Html();
 
-
+/*----------------------------------
+* * * * * *  * Varibles  * * * * *  
+-----------------------------------*/
 
 
 
@@ -16,6 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
 * * * * * * * * * * Functions  * * * * * * * * 
 ---------------------------------------------*/
 
+
+/*---------------------
+       Load Tasks
+----------------------*/
+
+
 /*---------------------
        New Task
 ----------------------*/
@@ -25,10 +33,13 @@ function newTask(){
           newTaskForm = document.querySelector('#new-task-form'),
           bgBlur = document.querySelector('#new-task-form .background-blur'),
           container = document.querySelector('.container'),
-          closeBtn = document.querySelector('.close-btn'),
           titleInput = document.querySelector('#title');
+    let progressTasks = [];
+    let completeTasks = [];
+
 
     // functions 
+    loadTasks();
     openAndCloseForm();
     formValidation();
     createdCategory();
@@ -38,9 +49,9 @@ function newTask(){
     function openAndCloseForm(){
         // set click event on new task button
         newTaskBtn.addEventListener('click', () => {
-            // show form and blur container
-            container.classList.add('blur');
+            // show form blur container
             newTaskForm.classList.add('active');
+            container.classList.add('blur');
             // focus on title input
             setTimeout(() => {
                 titleInput.focus();
@@ -48,15 +59,9 @@ function newTask(){
         });
         // set click event on bgBlur
         bgBlur.addEventListener('click', () => {
-            // hide form and remove blur class on container
-            container.classList.remove('blur');
+            // hide form class on container
             newTaskForm.classList.remove('active');
-        });
-        // set click event on close btn
-        closeBtn.addEventListener('click', () => {
-            // hide form and remove blur class on container
             container.classList.remove('blur');
-            newTaskForm.classList.remove('active');
         });
     }
 
@@ -66,26 +71,27 @@ function newTask(){
             event.preventDefault();
             // access to the form inputs
             const title =  newTaskForm.querySelector('#title'),
-                  description = newTaskForm.querySelector('#description'),
-                  categories = newTaskForm.querySelectorAll('input[type="checkbox"]:checked'),
+                //   description = newTaskForm.querySelector('#description'),
+                  category = newTaskForm.querySelector('input[name="select-category"]:checked'),
                   priority = newTaskForm.querySelector('input[name="priority"]:checked');
 
             // validattion title
             if(title.value == null || title.value == '' || title.value == ' '){
                 html.showMessage('Please Enter a Titel');
                 // validattion categories
-            } else if(categories.length == 0){
+            } else if(category == null){
                 html.showMessage('Please Select a Category');
                 // validattion priority
             } else if(priority == null){
                 html.showMessage('Please Select a Priority');
             }else {
                 // Created New Task
-                createdNewTask(title.value, categories, priority.getAttribute('id'), description.value);
+                createdNewTask(title.value, category.getAttribute('id'), priority.getAttribute('id'));
 
                 // hide form and remove blur class on container
                 container.classList.remove('blur');
                 newTaskForm.classList.remove('active');
+                titleInput.value = '';
             }
         })
     }
@@ -96,7 +102,6 @@ function newTask(){
         const newCategoryBtn = document.querySelector('#new-category-btn'),
               newTaskForm = document.querySelector('#new-task-form'),
               bgBlur = document.querySelector('#categories-form .background-blur'),
-              closeBtn = document.querySelector('#categories-form .close-btn'),
               categoriesBox = document.querySelector('#categories-form'),
               form = document.querySelector('#categories-form form'),
               input = form.querySelector('#new-category-input');
@@ -134,16 +139,12 @@ function newTask(){
             newCategoryBtn.addEventListener('click', () => {
                 categoriesBox.classList.add('active');
                 newTaskForm.classList.remove('active');
+                container.classList.add('blur');
                 // focus in input
                 setTimeout(() => {
                     input.focus();
                 }, 200);
                 
-            });
-            // set click event on close button ----> close category box
-            closeBtn.addEventListener('click', ()=>{
-                categoriesBox.classList.remove('active');
-                newTaskForm.classList.add('active');
             });
             // set click event on bg blur ----> close category box
             bgBlur.addEventListener('click', ()=>{
@@ -221,7 +222,7 @@ function newTask(){
                     // created li tag
                     const li = document.createElement('li');
                     // set class list 
-                    li.classList = 'category-option m-2 text-white d-flex align-items-center justify-content-between p-2';
+                    li.classList = 'category-option m-2 d-flex align-items-center justify-content-between py-2 px-3';
                     // set attr
                     li.setAttribute('category-id', category);
                     li.setAttribute('category-index', index);
@@ -242,19 +243,14 @@ function newTask(){
                     // created div tag 
                     const div = document.createElement('div');
                     // set class list
-                    div.classList = 'checkbox-group text-white-50 d-flex align-items-center mx-2';
+                    div.classList = 'radio-group mx-2';
                     // set attr
                     div.setAttribute('category-id', category);
                     div.setAttribute('category-index', index);
                     // created html template
                     div.innerHTML = `
-                    <div class="checkbox-container p-0 d-flex align-items-center justify-content-center mr-2 mb-2">
-                        <input type="checkbox" name="${category}" id="${category}">
-                        <div class="checkmark d-flex align-items-center justify-content-center">
-                            <i class="fa-solid fa-check"></i>
-                        </div>
-                    </div>
-                    <label for="${category}">${category}</label>
+                    <input type="radio" name="select-category" id="${category}">
+                    <label for="${category}" class="">${category}</label>
                     `;
     
                     // append div to the list
@@ -289,11 +285,54 @@ function newTask(){
               
     }
 
+    // Load Task From Local Storage
+    function loadTasks(){
+        // access to the progress tasks from LS
+        const progressData = localStorage.getItem('progressTasks');
+        // access to the complate tasks from LS
+        const completeData = localStorage.getItem('completeTasks');
+
+
+        // if  progress tasks is nul === created empty array
+        if(progressData === null || progressData == '' || progressData == '[]'){
+            localStorage.setItem('progressTasks', '[]');
+            progressTasks = [];
+        }
+        else{
+            // else set  progress tasks to categories array and set data in DOM
+            progressTasks = JSON.parse(localStorage.getItem('progressTasks'));
+            html.updateProgressTaskList(progressTasks);
+        }
+
+
+        // if  complete tasks is nul === created empty array
+        if(completeData === null || progressData == '' || progressData == '[]'){
+            localStorage.setItem('completeTasks', '[]');
+            completeTasks = [];
+        }
+        else{
+            // else set complete tasks to categories array and set data in DOM
+            completeTasks = JSON.parse(localStorage.getItem('completeTasks'));
+            html.updateCompleteTaskList(completeTasks);
+        }
+    }
+
     // Created New Task
-    function createdNewTask(title, categories, priority, description){
-        console.log(title);
-        console.log(categories);
-        console.log(priority);
-        console.log(description);
+    function createdNewTask(title, category, priority){
+        // created task object
+        const task = {
+            title: title,
+            category: category,
+            priority: priority,
+            complete: false
+        }
+
+        console.log(task);
+
+        // push task to task array
+        progressTasks.push(task);
+        // set task array to local storage
+        localStorage.setItem('progressTasks', JSON.stringify(progressTasks));
+        html.updateProgressTaskList(progressTasks);
     }
 }
