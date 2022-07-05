@@ -20,11 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /*---------------------
-       Load Tasks
-----------------------*/
-
-
-/*---------------------
        New Task
 ----------------------*/
 function newTask(){
@@ -52,16 +47,20 @@ function newTask(){
             // show form blur container
             newTaskForm.classList.add('active');
             container.classList.add('blur');
+            //
+            html.resetNewTaskForm()
             // focus on title input
-            setTimeout(() => {
-                titleInput.focus();
-            }, 200);
+            // setTimeout(() => {
+            //     titleInput.focus();
+            // }, 200);
         });
         // set click event on bgBlur
         bgBlur.addEventListener('click', () => {
             // hide form class on container
             newTaskForm.classList.remove('active');
             container.classList.remove('blur');
+            // rest form
+            html.resetNewTaskForm();
         });
     }
 
@@ -71,10 +70,13 @@ function newTask(){
             event.preventDefault();
             // access to the form inputs
             const title =  newTaskForm.querySelector('#title'),
-                //   description = newTaskForm.querySelector('#description'),
                   category = newTaskForm.querySelector('input[name="select-category"]:checked'),
                   priority = newTaskForm.querySelector('input[name="priority"]:checked');
 
+            
+
+
+                  
             // validattion title
             if(title.value == null || title.value == '' || title.value == ' '){
                 html.showMessage('Please Enter a Titel');
@@ -84,14 +86,16 @@ function newTask(){
                 // validattion priority
             } else if(priority == null){
                 html.showMessage('Please Select a Priority');
+            } else if(newTaskForm.classList.contains("edite")){
+                console.log('edite mode enable');
             }else {
-                // Created New Task
-                createdNewTask(title.value, category.getAttribute('id'), priority.getAttribute('id'));
-
                 // hide form and remove blur class on container
                 container.classList.remove('blur');
                 newTaskForm.classList.remove('active');
-                titleInput.value = '';
+                // Created New Task
+                createdNewTask(title.value, category.getAttribute('id'), priority.getAttribute('id'));
+                // REST FORM
+                html.resetNewTaskForm();
             }
         })
     }
@@ -301,7 +305,7 @@ function newTask(){
         else{
             // else set  progress tasks to categories array and set data in DOM
             progressTasks = JSON.parse(localStorage.getItem('progressTasks'));
-            html.updateProgressTaskList(progressTasks);
+            html.loadProgressTasks(progressTasks);
         }
 
 
@@ -327,12 +331,13 @@ function newTask(){
             complete: false
         }
 
-        console.log(task);
-
         // push task to task array
         progressTasks.push(task);
         // set task array to local storage
         localStorage.setItem('progressTasks', JSON.stringify(progressTasks));
-        html.updateProgressTaskList(progressTasks);
+        // created task in DOM
+        html.addNewTaskToList(task);
+        
+        
     }
 }

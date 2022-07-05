@@ -16,7 +16,7 @@ body{
 }
 .container{
     color: $textColor;
-    font-size: 14px !important;
+    font-size: 13px !important;
     @include  mediaMaxWidth(786px){
         font-size: 14px;
     }
@@ -115,8 +115,8 @@ header{
         -ms-transform: translate(4px,4px);
         -o-transform: translate(4px,4px);
         stroke: gold;
-        stroke-dasharray: 200.8;
-        stroke-dashoffset: 200.8;
+        stroke-dasharray: 201;
+        stroke-dashoffset: 201;
         stroke-linecap: round;
     }
     .circle svg circle:nth-child(1){
@@ -124,8 +124,8 @@ header{
         stroke: $textMuted;
     }
     .circle svg circle:nth-child(2){
-        stroke-dashoffset: calc(200.8 - (196 * 50) / 100);
-        stroke: rgb(73, 180, 175);
+        stroke-dashoffset: calc(201 - (196 * 50) / 100);
+        stroke: rgb(0, 182, 238);
     }
     .circle .number{
         position: absolute;
@@ -145,17 +145,24 @@ header{
 -------------------------*/
 #task-list{
     background-color: $bgSecondaryColor;
-    border-radius: 30px;
-    -webkit-border-radius: 30px;
-    -moz-border-radius: 30px;
-    -ms-border-radius: 30px;
-    -o-border-radius: 30px;
+    @include borderRadius(30px);
+    font-size: .97em;
 
-    .title{
-        word-break: break-all;
-    }
     .list-option{
         border-bottom: 1px solid rgba(255, 255, 255, 0.041);
+        @include transform(translateX(0px));
+        @include transition(.6s);
+        background-color: $bgSecondaryColor;
+    }
+    .list-option.slide-right{
+        @include transform(translateX(-50px));
+        background-color: $bgSecondaryColor;
+        @include borderRadius(10px);
+        padding-left: 10px;
+    }
+    .title{
+        word-break: break-all;
+        text-transform: capitalize;
     }
     .icons i {
         font-size: 1.2em;
@@ -180,7 +187,7 @@ header{
         min-width: 100px;
         @include borderRadius(7px);
         @include transition(.2s);
-        z-index: 5;
+        z-index: 100;
         opacity: 0;
         visibility: hidden;
 
@@ -189,8 +196,8 @@ header{
         }
     }
     .optionBox.active{
-        top: 22px;
-        right: 5px;
+        top: 0px;
+        right: 25px;
         opacity: 1;
         visibility: visible;
     }
@@ -209,37 +216,37 @@ header{
         font-size: .83em;
     }
     .priority.High{
-        background-color: rgba(0, 89, 255, 0.158);
-        color: rgb(0, 108, 248);
+        background-color: rgba(37, 90, 189, 0.192);
+        color: rgb(0, 157, 248);
     }
     .priority.Medium{
         background-color: rgba(255, 177, 74, 0.103);
         color: rgb(255, 115, 0);
     }
     .priority.Low{
-        background-color: rgba(255, 0, 0, 0.082);
-        color: rgb(255, 30, 30);
+        background-color: rgba(255, 0, 0, 0.13);
+        color: rgb(255, 45, 45);
     }
     
 }
 .checkbox-container{
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     border: 2px solid $textMuted;
-    @include borderRadius(10px);
+    @include borderRadius(8px);
     cursor: pointer;
     position: relative;
 
     input{
         display: inline-block;
-        width: 90%;
-        height: 90%;
+        width: 95%;
+        height: 95%;
         opacity: 0;
         cursor: pointer;
     }
     .checkmark{
-        width: 30px;
-        height: 30px;
+        width: 25px;
+        height: 25px;
         position: absolute;
         top: -2px;
         right: -2px;
@@ -248,12 +255,12 @@ header{
         font-size: .8em;
         color: transparent;
         padding-left: 1px;
-        @include borderRadius(10px);
-        @include transition(.1s ease-in);
+        @include borderRadius(8px);
+        @include transition(.1s);
     }
     input:checked ~ .checkmark{
         color: $textColor;
-        background-color: $bgDarkBlueColor;
+        background-color: $bgBlueColor;
     }
 }
 
@@ -332,7 +339,7 @@ header{
     }
 }
 #new-task-form #created-new-task{
-    @include transform(translateY(100px));
+    @include transform(translateY(70px));
     @include transition(.2s);
     @include borderRadius(25px);
     min-height: 20vh;
@@ -378,11 +385,12 @@ header{
     }
     #new-category-btn{
         background-color: transparent;
-        color: $bgDarkBlueColor;
+        color: $bgWhite;
+        background-color: $bgBlueColor;
         outline: none;
-        border: 1px solid $bgDarkBlueColor;
-        font-size: .8em;
-        padding: 5px 8px;
+        // border: 1px solid $bgDarkBlueColor;
+        font-size: .75em;
+        padding: 6px 10px;
         @include borderRadius(10px);
         @include transition(.3s);
 
@@ -424,7 +432,7 @@ header{
         font-weight: 700 !important;
     }
     input:checked ~ label{
-        background-color: $bgDarkColor;
+        background-color: $bgSecondaryColor;
         color: white !important;
     }
 }
@@ -537,7 +545,7 @@ header{
         position: absolute;
         top: 12px;
         right: 15px;
-        width: 18%;
+        width: 80px;
         background-color: $bgGoldColor;
         padding: 5px;
         margin-bottom: 3px;

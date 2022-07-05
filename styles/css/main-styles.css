@@ -14,7 +14,7 @@ body {
 
 .container {
   color: rgb(245, 245, 245);
-  font-size: 14px !important;
+  font-size: 13px !important;
 }
 @media screen and (max-width: 786px) {
   .container {
@@ -84,6 +84,7 @@ header #new-task-btn:hover {
   font-size: 1.6em;
 }
 .task-progress .body span {
+  font-size: 0.9em;
   color: #636363;
   font-weight: 400;
 }
@@ -110,8 +111,8 @@ header #new-task-btn:hover {
   -ms-transform: translate(4px, 4px);
   -o-transform: translate(4px, 4px);
   stroke: gold;
-  stroke-dasharray: 200.8;
-  stroke-dashoffset: 200.8;
+  stroke-dasharray: 201;
+  stroke-dashoffset: 201;
   stroke-linecap: round;
 }
 .task-progress .circle svg circle:nth-child(1) {
@@ -119,8 +120,8 @@ header #new-task-btn:hover {
   stroke: #636363;
 }
 .task-progress .circle svg circle:nth-child(2) {
-  stroke-dashoffset: 102.8;
-  stroke: rgb(73, 180, 175);
+  stroke-dashoffset: 103;
+  stroke: rgb(0, 182, 238);
 }
 .task-progress .circle .number {
   position: absolute;
@@ -142,12 +143,39 @@ header #new-task-btn:hover {
   -moz-border-radius: 30px;
   -ms-border-radius: 30px;
   -o-border-radius: 30px;
-}
-#task-list .title {
-  word-break: break-all;
+  font-size: 0.97em;
 }
 #task-list .list-option {
   border-bottom: 1px solid rgba(255, 255, 255, 0.041);
+  transform: translateX(0px);
+  -webkit-transform: translateX(0px);
+  -moz-transform: translateX(0px);
+  -ms-transform: translateX(0px);
+  -o-transform: translateX(0px);
+  transition: 0.6s;
+  -webkit-transition: 0.6s;
+  -moz-transition: 0.6s;
+  -ms-transition: 0.6s;
+  -o-transition: 0.6s;
+  background-color: #232033;
+}
+#task-list .list-option.slide-right {
+  transform: translateX(-50px);
+  -webkit-transform: translateX(-50px);
+  -moz-transform: translateX(-50px);
+  -ms-transform: translateX(-50px);
+  -o-transform: translateX(-50px);
+  background-color: #232033;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  padding-left: 10px;
+}
+#task-list .title {
+  word-break: break-all;
+  text-transform: capitalize;
 }
 #task-list .icons i {
   font-size: 1.2em;
@@ -180,7 +208,7 @@ header #new-task-btn:hover {
   -moz-transition: 0.2s;
   -ms-transition: 0.2s;
   -o-transition: 0.2s;
-  z-index: 5;
+  z-index: 100;
   opacity: 0;
   visibility: hidden;
 }
@@ -188,8 +216,8 @@ header #new-task-btn:hover {
   font-size: 0.9em;
 }
 #task-list .optionBox.active {
-  top: 22px;
-  right: 5px;
+  top: 0px;
+  right: 25px;
   opacity: 1;
   visibility: visible;
 }
@@ -216,40 +244,40 @@ header #new-task-btn:hover {
   font-size: 0.83em;
 }
 #task-list .priority.High {
-  background-color: rgba(0, 89, 255, 0.158);
-  color: rgb(0, 108, 248);
+  background-color: rgba(37, 90, 189, 0.192);
+  color: rgb(0, 157, 248);
 }
 #task-list .priority.Medium {
   background-color: rgba(255, 177, 74, 0.103);
   color: rgb(255, 115, 0);
 }
 #task-list .priority.Low {
-  background-color: rgba(255, 0, 0, 0.082);
-  color: rgb(255, 30, 30);
+  background-color: rgba(255, 0, 0, 0.13);
+  color: rgb(255, 45, 45);
 }
 
 .checkbox-container {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   border: 2px solid #636363;
-  border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
   cursor: pointer;
   position: relative;
 }
 .checkbox-container input {
   display: inline-block;
-  width: 90%;
-  height: 90%;
+  width: 95%;
+  height: 95%;
   opacity: 0;
   cursor: pointer;
 }
 .checkbox-container .checkmark {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   position: absolute;
   top: -2px;
   right: -2px;
@@ -258,20 +286,20 @@ header #new-task-btn:hover {
   font-size: 0.8em;
   color: transparent;
   padding-left: 1px;
-  border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
-  transition: 0.1s ease-in;
-  -webkit-transition: 0.1s ease-in;
-  -moz-transition: 0.1s ease-in;
-  -ms-transition: 0.1s ease-in;
-  -o-transition: 0.1s ease-in;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  transition: 0.1s;
+  -webkit-transition: 0.1s;
+  -moz-transition: 0.1s;
+  -ms-transition: 0.1s;
+  -o-transition: 0.1s;
 }
 .checkbox-container input:checked ~ .checkmark {
   color: rgb(245, 245, 245);
-  background-color: rgb(9, 0, 136);
+  background-color: rgb(6, 143, 255);
 }
 
 /*----------------------- 
@@ -386,11 +414,11 @@ header #new-task-btn:hover {
 }
 
 #new-task-form #created-new-task {
-  transform: translateY(100px);
-  -webkit-transform: translateY(100px);
-  -moz-transform: translateY(100px);
-  -ms-transform: translateY(100px);
-  -o-transform: translateY(100px);
+  transform: translateY(70px);
+  -webkit-transform: translateY(70px);
+  -moz-transform: translateY(70px);
+  -ms-transform: translateY(70px);
+  -o-transform: translateY(70px);
   transition: 0.2s;
   -webkit-transition: 0.2s;
   -moz-transition: 0.2s;
@@ -447,11 +475,11 @@ header #new-task-btn:hover {
 }
 #new-task-form #created-new-task #new-category-btn {
   background-color: transparent;
-  color: rgb(9, 0, 136);
+  color: #f5f5f5;
+  background-color: rgb(6, 143, 255);
   outline: none;
-  border: 1px solid rgb(9, 0, 136);
-  font-size: 0.8em;
-  padding: 5px 8px;
+  font-size: 0.75em;
+  padding: 6px 10px;
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -513,7 +541,7 @@ header #new-task-btn:hover {
   font-weight: 700 !important;
 }
 .task-categories .radio-group input:checked ~ label {
-  background-color: #1e1b2e;
+  background-color: #232033;
   color: white !important;
 }
 
@@ -650,7 +678,7 @@ header #new-task-btn:hover {
   position: absolute;
   top: 12px;
   right: 15px;
-  width: 18%;
+  width: 80px;
   background-color: rgb(255, 187, 0);
   padding: 5px;
   margin-bottom: 3px;
