@@ -47,13 +47,14 @@ class Html{
         
     }
     addNewTaskToList(task){
+ 
         // access to the task list
         const taskList = document.querySelector('#list');
         // created li 
         const li = document.createElement('li');
         li.classList = 'list-option slide-right mt-3 pb-2 row position-relative d-flex align-items-center';
         li.setAttribute('priority', task.priority);
-        li.setAttribute('id', task.title);
+        li.setAttribute('id', task.taskId);
         li.setAttribute('complete', task.complete);
 
 
@@ -104,69 +105,7 @@ class Html{
         
 
         // create eventlisteners on options
-        createOptionsEvent(li);
-
-        /*---------------------
-                Options
-        ----------------------*/
-        // create eventlisteners on options
-        function createOptionsEvent(li){
-            // access to the elements
-            const optionsBtn = li.querySelector('.icons #optionBtn'),
-            optionBox = li.querySelector('.optionBox');
-
-            // Open and close option box
-            openAndCloseBox();
-            function openAndCloseBox(){
-                // set click event on option btn
-                optionsBtn.addEventListener('click', () => {
-                    // access to open box
-                    const openOptionBox = document.querySelector('.optionBox.active');
-                    // open option box
-                    optionBox.classList.toggle('active');
-                    // close open boxes
-                    if(openOptionBox !== null){
-                        openOptionBox.classList.remove('active');
-                    }
-                });
-            }
-
-            // Edite task
-            editeTask();
-            function editeTask(){
-                // access to the elements
-                const editeBtn = optionBox.querySelector('.edite-task'),
-                      newTaskForm = document.querySelector('#new-task-form'),
-                      container = document.querySelector('.container'),
-                      title =  newTaskForm.querySelector('#title');
-
-                // set click event on edite button
-                editeBtn.addEventListener('click', () => {
-                    // access to the radio inputs
-                    const category = newTaskForm.querySelector(`input#${task.category}`),
-                    priority = newTaskForm.querySelector(`input#${task.priority}`);
-
-                    // open form
-                    newTaskForm.classList.add('active');
-                    newTaskForm.classList.add('edite');
-                    newTaskForm.setAttribute('old-id', task.title);
-                    container.classList.add('blur');
-                    // set task data in form
-                    title.value = task.title;
-                    try {
-                        category.checked = true;
-                    } catch (error) {
-                        html.showMessage(`${task.category} Category not find.!`)
-                    }
-                    priority.checked = true;
-
-                    // close option box
-                    optionBox.classList.remove('active');
-
-                    
-                })
-            }
-        }
+        this.createOptionsEvent(li, task);
     }
     resetNewTaskForm(){
         // access to the elements
@@ -186,5 +125,129 @@ class Html{
         if(priority !== null){
             priority.checked = false;
         }
+    }
+    createOptionsEvent(li, task){
+        // access to the elements
+        const optionsBtn = li.querySelector('.icons #optionBtn'),
+        optionBox = li.querySelector('.optionBox');
+
+        // Open and close option box
+        openAndCloseBox();
+        function openAndCloseBox(){
+            // set click event on option btn
+            optionsBtn.addEventListener('click', () => {
+                // access to open box
+                const openOptionBox = document.querySelector('.optionBox.active');
+                // open option box
+                optionBox.classList.toggle('active');
+                // close open boxes
+                if(openOptionBox !== null){
+                    openOptionBox.classList.remove('active');
+                }
+            });
+        }
+
+        // Edite task
+        editeTask();
+        function editeTask(){
+            // access to the elements
+            const editeBtn = optionBox.querySelector('.edite-task'),
+                  newTaskForm = document.querySelector('#new-task-form'),
+                  container = document.querySelector('.container'),
+                  title =  newTaskForm.querySelector('#title');
+
+            // set click event on edite button
+            editeBtn.addEventListener('click', () => {
+                // access to the radio inputs
+                const category = newTaskForm.querySelector(`input#${task.category}`),
+                priority = newTaskForm.querySelector(`input#${task.priority}`);
+
+                // open form
+                newTaskForm.classList.add('active');
+                newTaskForm.classList.add('edite');
+                newTaskForm.setAttribute('taskId', task.taskId);
+                container.classList.add('blur');
+                // set task data in form
+                title.value = task.title;
+                try {
+                    category.checked = true;
+                } catch (error) {
+                    html.showMessage(`${task.category} Category not find.!`)
+                }
+                priority.checked = true;
+
+                // close option box
+                optionBox.classList.remove('active');
+            });
+        }
+    }
+    editeTaskFromDomAndLS(taskId, newTaskObject){
+        // access to the all tasks
+        const allTasks = JSON.parse(localStorage.getItem('progressTasks'));
+        // access to the task index
+        let taskIndex = '';
+
+        
+        /*----------------------------
+        Edite Task in LocalStorage
+        ----------------------------*/
+        editeTaskInLS()
+        function editeTaskInLS(){
+            // each in tasks and find task index
+            allTasks.forEach((task, index )=> {
+                if(taskId == task.taskId){
+                    taskIndex = index;
+                }
+            });
+
+            // set new task in tasks array
+            allTasks.splice(taskIndex, 1, newTaskObject);
+
+            // set task array in ls
+            localStorage.setItem('progressTasks', JSON.stringify(allTasks));
+        }
+
+
+        /*----------------------------
+        Edite Task in Dom
+        ----------------------------*/
+        editeTaskInDom();
+        function editeTaskInDom(){
+            // access to the all tasks div
+            const allTaskDivs = document.querySelectorAll(`.list-option`);
+            // each in tasks divs and find task index
+            allTaskDivs.forEach((task, index )=> {
+                if(taskId == task.getAttribute('id')){
+                    taskIndex = index;
+                }
+            });
+            
+            // Change task Data ====> se new data
+            const taskDiv = allTaskDivs[taskIndex];
+
+            // access to the elements
+            const title = taskDiv.querySelector('.title'),
+                  category = taskDiv.querySelector('.category'),
+                  priority = taskDiv.querySelector('.priority');
+
+            taskDiv.setAttribute('priority', newTaskObject.priority);
+            title.innerHTML = newTaskObject.title;
+            category.innerHTML = newTaskObject.category;
+            priority.classList = `priority mr-3 ${newTaskObject.priority}`
+            priority.innerHTML = newTaskObject.priority;
+
+            // hide form and remove blur class on container
+            const newTaskForm = document.querySelector('#new-task-form'),
+                  container = document.querySelector('.container');
+
+
+            container.classList.remove('blur');
+            newTaskForm.classList.remove('active');
+
+
+
+
+        }
+
     }
 }
