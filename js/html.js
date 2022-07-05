@@ -158,24 +158,40 @@ class Html{
 
             // set click event on edite button
             editeBtn.addEventListener('click', () => {
+                // access to the all task from local storage
+                const progressTasks = JSON.parse(localStorage.getItem('progressTasks'));
+                // created task index
+                let taskIndex = 0;
+                // each in tasks and find current task index
+                progressTasks.forEach((prTask , index)=> {
+                    if(task.taskId == prTask.taskId){
+                        taskIndex = index;
+                    }
+                });
+
+                // access to current task
+                const currentTask = progressTasks[taskIndex];
                 // access to the radio inputs
-                const category = newTaskForm.querySelector(`input#${task.category}`),
-                priority = newTaskForm.querySelector(`input#${task.priority}`);
+                const category = newTaskForm.querySelector(`input#${currentTask.category}`),
+                priority = newTaskForm.querySelector(`input#${currentTask.priority}`);
 
                 // open form
                 newTaskForm.classList.add('active');
                 newTaskForm.classList.add('edite');
-                newTaskForm.setAttribute('taskId', task.taskId);
-                container.classList.add('blur');
+                newTaskForm.setAttribute('taskId', currentTask.taskId);
+
                 // set task data in form
-                title.value = task.title;
+                title.value = currentTask.title;
                 try {
                     category.checked = true;
                 } catch (error) {
-                    html.showMessage(`${task.category} Category not find.!`)
+                    html.showMessage(`${currentTask.category} Category not find.!`)
                 }
                 priority.checked = true;
 
+
+                // add blur class to container
+                container.classList.add('blur');
                 // close option box
                 optionBox.classList.remove('active');
             });
@@ -243,10 +259,6 @@ class Html{
 
             container.classList.remove('blur');
             newTaskForm.classList.remove('active');
-
-
-
-
         }
 
     }
