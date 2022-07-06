@@ -61,7 +61,7 @@ class Html{
         // Created template
         li.innerHTML = `
         <div class="body d-flex align-items-center col-10 p-0">
-            <div class="checkbox-container p-0 d-flex align-items-center justify-content-center mr-2 ">
+            <div class="checkbox-container p-0 d-flex align-items-center justify-content-center mr-2" title="Complete Task">
                 <input type="checkbox" name="${task.title}" >
                 <div class="checkmark d-flex align-items-center justify-content-center">
                     <i class="fa-solid fa-check"></i>
@@ -81,7 +81,7 @@ class Html{
         </div>
         <div class="options ml-auto col-2 col-md-1 text-right p-0 pr-1">
             <div class="icons w-100 d-flex justify-content-end">
-                <i class="fa-solid fa-ellipsis-vertical" id='optionBtn'></i>
+                <i class="fa-solid fa-ellipsis-vertical" id='optionBtn' title='More Options'></i>
                 <div class='optionBox'>
                     <div class='edite-task d-flex align-items-center justify-content-between'>
                         <i class='fa-duotone fa-pen'></i>
@@ -131,8 +131,13 @@ class Html{
         const optionsBtn = li.querySelector('.icons #optionBtn'),
         optionBox = li.querySelector('.optionBox');
 
-        // Open and close option box
+        // FUNCTIONS 
         openAndCloseBox();
+        editeTask();
+        removeTask();
+
+
+        // Open and close option box
         function openAndCloseBox(){
             // set click event on option btn
             optionsBtn.addEventListener('click', () => {
@@ -148,7 +153,6 @@ class Html{
         }
 
         // Edite task
-        editeTask();
         function editeTask(){
             // access to the elements
             const editeBtn = optionBox.querySelector('.edite-task'),
@@ -194,7 +198,15 @@ class Html{
                 container.classList.add('blur');
                 // close option box
                 optionBox.classList.remove('active');
+
+                // Push new id to browser history
+                window.history.pushState({id:1}, 'id' ,'/projects/todo?id=CreatedNewTask');
             });
+        }
+
+        // Remove Task
+        function removeTask(){
+            // 
         }
     }
     editeTaskFromDomAndLS(taskId, newTaskObject){

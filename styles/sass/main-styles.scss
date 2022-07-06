@@ -140,6 +140,7 @@ header{
 }
 
 
+
 /*----------------------- 
     Start Task List
 -------------------------*/
@@ -265,6 +266,68 @@ header{
 }
 
 
+
+/*----------------------- 
+    Start Complete Tasks
+-------------------------*/
+#complete-list{
+    background-color: $bgSecondaryColor;
+    @include borderRadius(30px);
+    font-size: .97em;
+
+    .list-option{
+        border-bottom: 1px solid rgba(255, 255, 255, 0.041);
+        @include transform(translateX(0px));
+        @include transition(.6s);
+        background-color: $bgSecondaryColor;
+        opacity: .6;
+    }
+    .list-option.slide-right{
+        @include transform(translateX(-50px));
+        background-color: $bgSecondaryColor;
+        @include borderRadius(10px);
+        padding-left: 10px;
+    }
+    .title{
+        word-break: break-all;
+        text-transform: capitalize;
+        text-decoration: line-through;
+    }
+    .category{
+        font-size: .9em;
+        color: $textMuted;
+    }
+    .remove-btn{
+        font-size: 1.4em;
+        cursor: pointer;
+        
+        &:hover{
+            color: $dangerColor;
+        }
+    }
+    .priority{
+        padding: 2px 8px;
+        @include borderRadius(5px);
+        font-weight: bold;
+        font-size: .83em;
+    }
+    .priority.High{
+        background-color: rgba(37, 90, 189, 0.192);
+        color: rgb(0, 157, 248);
+    }
+    .priority.Medium{
+        background-color: rgba(255, 177, 74, 0.103);
+        color: rgb(255, 115, 0);
+    }
+    .priority.Low{
+        background-color: rgba(255, 0, 0, 0.13);
+        color: rgb(255, 45, 45);
+    }
+    
+}
+
+
+
 /*----------------------- 
     Start Message Box
 -------------------------*/
@@ -367,7 +430,7 @@ header{
         background-color: $grayColor;
         color: rgb(12, 12, 12) !important;
         @include transition(.2s);
-        border: 1px solid rgb(212, 212, 212);
+        border: 1px solid rgb(218, 218, 218);
         padding: 15px;
         @include borderRadius(15px);
         font-size: .9em;

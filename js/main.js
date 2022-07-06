@@ -47,21 +47,42 @@ function newTask(){
             // show form blur container
             newTaskForm.classList.add('active');
             container.classList.add('blur');
-            //
-            html.resetNewTaskForm()
-            // focus on title input
-            // setTimeout(() => {
-            //     titleInput.focus();
-            // }, 200);
+            // Reset form
+            html.resetNewTaskForm();
+            // Push new id to browser history
+            window.history.pushState({id:1}, 'id' ,'/projects/todo?id=CreatedNewTask');
         });
         // set click event on bgBlur
         bgBlur.addEventListener('click', () => {
+            closer();
+            // back to prev history
+            window.history.back();
+        });
+
+
+        // if back button clicked
+        window.addEventListener('popstate', () => {
+            // close form 
+            closer();
+            // access to the category elements
+            const bgBlur = document.querySelector('#categories-form .background-blur'),
+            categoriesBox = document.querySelector('#categories-form');
+            // hide category box
+            categoriesBox.classList.remove('active');
+            bgBlur.classList.remove('active');
+            // set default url
+            console.log(window.history.length);
+            window.history.replaceState({id:1}, 'default url', '/projects/todo');
+        });
+
+        // close form
+        function closer(){
             // hide form class on container
             newTaskForm.classList.remove('active');
             container.classList.remove('blur');
-            // rest form
+            // reset form
             html.resetNewTaskForm();
-        });
+        }
     }
 
     // form validation
@@ -169,13 +190,13 @@ function newTask(){
                 setTimeout(() => {
                     input.focus();
                 }, 200);
-                
             });
             // set click event on bg blur ----> close category box
             bgBlur.addEventListener('click', ()=>{
                 categoriesBox.classList.remove('active');
                 newTaskForm.classList.add('active');
             });
+
         }
 
 
@@ -370,5 +391,8 @@ function newTask(){
         return Math.floor((1 + Math.random()) * 0x10000)
             .toString(16)
             .substring(1);
-      }
+    }
+
+
+    
 }
