@@ -148,19 +148,8 @@ header{
     background-color: $bgSecondaryColor;
     @include borderRadius(30px);
     font-size: .97em;
+    @include transition(.3s);
 
-    .list-option{
-        border-bottom: 1px solid rgba(255, 255, 255, 0.041);
-        @include transform(translateX(0px));
-        @include transition(.6s);
-        background-color: $bgSecondaryColor;
-    }
-    .list-option.slide-right{
-        @include transform(translateX(-50px));
-        background-color: $bgSecondaryColor;
-        @include borderRadius(10px);
-        padding-left: 10px;
-    }
     .title{
         word-break: break-all;
         text-transform: capitalize;
@@ -264,7 +253,31 @@ header{
         background-color: $bgBlueColor;
     }
 }
-
+.list-option{
+    border-bottom: 1px solid rgba(255, 255, 255, 0.041);
+    @include transform(translateX(0px));
+    @include transition(.6s);
+    @include borderRadius(10px);
+    background-color: $bgSecondaryColor;
+}
+.list-option.slide-right{
+    @include transform(translateX(-50px));
+    background-color: $bgSecondaryColor;
+    @include borderRadius(10px);
+    padding-left: 10px;
+}
+.list-option.remove{
+    background-color: rgb(219, 12, 12);
+    @include transform(translateX(30px));
+    padding-right: 10px;
+    opacity: 0;
+}
+.list-option.undo{
+    background-color: rgba(81, 255, 0, 0.534);
+    @include transform(translateX(0px));
+    padding-right: 10px;
+    opacity: 1;
+}
 
 
 /*----------------------- 
@@ -274,19 +287,10 @@ header{
     background-color: $bgSecondaryColor;
     @include borderRadius(30px);
     font-size: .97em;
+    @include transition(.3s);
 
     .list-option{
-        border-bottom: 1px solid rgba(255, 255, 255, 0.041);
-        @include transform(translateX(0px));
-        @include transition(.6s);
-        background-color: $bgSecondaryColor;
-        opacity: .6;
-    }
-    .list-option.slide-right{
-        @include transform(translateX(-50px));
-        background-color: $bgSecondaryColor;
-        @include borderRadius(10px);
-        padding-left: 10px;
+    opacity: .6;
     }
     .title{
         word-break: break-all;
@@ -533,8 +537,8 @@ header{
 
 
 
-/*----------------------- 
-    Start New Category
+/*------------------------- 
+     Start New Category
 -------------------------*/
 #categories-form{
     position: fixed;
@@ -639,6 +643,107 @@ header{
 }
 
 
+/*------------------------- 
+ Start Confirm Delete Box
+-------------------------*/
+#confirm-box{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 15;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    @include transition(.2s);
+
+    .background-blur{
+        width: 100%;
+        top: 0;
+        right: 0;
+        z-index: 1;
+        // background-color: $bgSecondary50;
+    }
+}
+#confirm-box.active{
+    visibility: visible;
+    opacity: 1;
+    pointer-events: all;
+
+    #confirm-form{
+        @include transform(translateY(0))
+    }
+    
+}
+#confirm-box #confirm-form{
+    @include borderRadius(20px);
+    @include transform(translateY(100px));
+    @include transition(.3s);
+    z-index: 5;
+    background-color: $bgWhite;
+    min-height: 20vh;
+    
+    p{
+        font-size: 1.2em;
+    }
+    button{
+        color: $bgDarkColor;
+        padding: 5px 15px;
+        @include borderRadius(10px);
+        @include transition(.3s);
+    }
+    #cancel{
+        background-color: $bgGoldColor;
+
+        &:hover{
+            background-color: $bgSecondary50;
+        }
+    }
+    #remove{
+        color: $bgDarkColor;
+        background-color: $grayColor;
+
+        &:hover{
+            background-color: $dangerColor;
+            color: $textColor;
+        }
+    }
+}
+
+
+
+/*------------------------- 
+  Start Undo Remove Task
+-------------------------*/
+#undo-box{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    @include transition(.5s);
+
+    
+    .box{
+        height: 50px;
+        background-color: $bgSecondaryColor;
+        @include borderRadius(17px);
+        @include transform(translateY(0px));
+        @include transition(.3s);
+        opacity: 0;
+    }
+}
+#undo-box.active{
+    visibility: visible;
+    opacity: 1;
+    pointer-events: all;
+
+    .box{
+        @include transform(translateY(-70px));
+        opacity: 1;
+    }
+}
+
 
 /*------------------------------------------ 
  * * * * * * * *  Mobile Styles * * * * * * 
@@ -658,6 +763,13 @@ header{
         bottom: 0;
     }
     #categories-section{
+        @include borderRadius(40px 40px 0 0 !important);
+        min-height:20vh ;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+    }
+    #confirm-form{
         @include borderRadius(40px 40px 0 0 !important);
         min-height:20vh ;
         position: fixed;

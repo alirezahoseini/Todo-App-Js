@@ -10,6 +10,7 @@ const html= new Html();
 
 document.addEventListener('DOMContentLoaded', () => {
     newTask();
+    removeTask();
 });
 
 
@@ -71,7 +72,6 @@ function newTask(){
             categoriesBox.classList.remove('active');
             bgBlur.classList.remove('active');
             // set default url
-            console.log(window.history.length);
             window.history.replaceState({id:1}, 'default url', '/projects/todo');
         });
 
@@ -395,4 +395,189 @@ function newTask(){
 
 
     
+}
+
+
+/*---------------------
+       Remove Task
+----------------------*/
+function removeTask(){
+    // Access To the Elements
+    const confirmBox = document.querySelector('#confirm-box'),
+    container = document.querySelector('.container'),
+    bgBlur = confirmBox.querySelector('.background-blur'),
+    cancelBtn = confirmBox.querySelector('#cancel'),
+    removeBtn = confirmBox.querySelector('#remove');
+
+    // undo Task
+    let removeTimeOut;
+    undoTask();
+
+   
+
+
+    // Set click Event on Cancel Button
+    cancelBtn.addEventListener('click', closer);
+
+
+    // Set Click Event on Remove Button
+    removeBtn.addEventListener('click', () => {
+        // access to the indexes
+        const taskIndexes = findIndex();
+        // access to the Undo box and Set index
+        const undoBox = document.querySelector('#undo-box');
+        // Set Task Data in Undo Box
+        undoBox.setAttribute('indexes', JSON.stringify(taskIndexes));
+
+        // Access to the all task from DOM
+        let allFromDom = '';
+        if(taskIndexes.status == 'progress'){
+            allFromDom = document.querySelectorAll(`#task-list .list-option`);
+        }else{
+            allFromDom = document.querySelectorAll(`#complete-list .list-option`);
+        }
+
+        
+        
+
+        /*-------------------------------
+                Hide Task From Dom
+        --------------------------------*/
+        // Add Remove Class To Task Tag
+        allFromDom[taskIndexes.dom].classList.add('remove');
+        // Remove Task From Dom After .5s
+        setTimeout(() => {
+            // Undo Message Open
+            undoBox.classList.add('active');
+             // Hide Task From Dom
+            allFromDom[taskIndexes.dom].classList.add('d-none');
+            allFromDom[taskIndexes.dom].classList.remove('d-flex');
+        }, 500);
+
+        // Close Confirm Box
+        closer();
+
+    
+        /*-------------------------------
+              Remove Task After 3s
+        --------------------------------*/
+        /////// If NOT UNDO TASK after 3s remove task from dom and Localstorage
+        removeTimeOut = setTimeout(() => {
+            // hide undo box
+            undoBox.classList.remove('active');
+            // Remove task from dom
+            allFromDom[taskIndexes.dom].remove();
+            /*-------------------------------
+                Remove Task From LOCALSTORAGE
+            --------------------------------*/
+            // access to tasks from LS
+            let lsData = JSON.parse(localStorage.getItem(`${taskIndexes.status}Tasks`));
+            // Remove Task from LS Task Array
+            lsData.splice(taskIndexes.local, 1);
+            // Stringify
+            lsData = JSON.stringify(lsData);
+            // Set LsData to LocalStorage
+            localStorage.setItem(`${taskIndexes.status}Tasks`, lsData);
+        }, 3000);
+    });
+
+
+    // FIND TASK INDEX IN DOM AND LOCALSTORAGE
+    function findIndex(){
+        // created empty object
+        let indexes = {
+            local: null,
+            dom: null,
+            status: null
+        }
+        // Access to task id
+        const taskId = confirmBox.getAttribute('task-id');
+        // Access to status
+        const status = confirmBox.getAttribute('status');
+
+
+        // Access to The All task from localStorage
+        const allFromLocal = JSON.parse(localStorage.getItem(`${status}Tasks`));
+        // Find Local Index
+        allFromLocal.forEach((lsTask, index) => {
+            if(lsTask.taskId == taskId){
+                indexes.local = index;
+                indexes.status = status;
+            }
+        });
+
+
+        // Access to the all task from DOM
+        let allFromDom = '';
+        if(status == 'progress'){
+            allFromDom = document.querySelectorAll(`#task-list .list-option`);
+        }else{
+            allFromDom = document.querySelectorAll(`#complete-list .list-option`);
+        }
+        // Find DOM Index
+        allFromDom.forEach((domTask, index) => {
+            if(domTask.getAttribute('id') == taskId){
+                indexes.dom = index;
+            }
+        });
+        
+
+        // Return Indexes
+        return indexes;
+    }
+    
+    // Box Closer
+    function closer(){
+        // Access To the Elements
+        const container = document.querySelector('.container'),
+        bgBlur = confirmBox.querySelector('.background-blur');
+
+        container.classList.remove('blur');
+        confirmBox.classList.remove('active');
+        // set default url
+        window.history.replaceState({id:1}, 'default url', '/projects/todo');
+    }
+
+    // UnDo Remove Task
+    function undoTask(){
+        // access to the Elements
+        const undoBox = document.querySelector('#undo-box'),
+              undoButton = undoBox.querySelector('button');
+
+        
+
+        // 
+        undoButton.addEventListener('click', () => {
+            // access to task indexes
+            const taskIndexes = JSON.parse(undoBox.getAttribute('indexes'));
+
+            // Access to the all task from DOM
+            let allFromDom = '';
+            if(taskIndexes.status == 'progress'){
+                allFromDom = document.querySelectorAll(`#task-list .list-option`);
+            }else{
+                allFromDom = document.querySelectorAll(`#complete-list .list-option`);
+            }
+
+            // add display flex class to the task li tag
+            allFromDom[taskIndexes.dom].classList.add('d-flex');
+            allFromDom[taskIndexes.dom].classList.remove('d-none');
+            // Add undo class after .2s ===> slide to left and back task with green effect
+            setTimeout(() => {
+                allFromDom[taskIndexes.dom].classList.add('undo');
+                // remove slide effects class after .2s ===> remove and undo class
+                setTimeout(() => {
+                    allFromDom[taskIndexes.dom].classList.remove('undo');
+                    allFromDom[taskIndexes.dom].classList.remove('remove');
+                }, 200);
+            }, 200);
+
+    
+            clearTimeout(removeTimeOut);
+            undoBox.classList.remove('active');
+        })
+        
+    }
+  
+
 }

@@ -248,6 +248,29 @@
     ------------------------->
     <div class="row m-0" id="message-box">
     </div>
+    <!------------------------ 
+     Start Confirm Delete Box
+    ------------------------->
+    <div id="confirm-box" class="d-flex justify-content-center align-items-md-center mx-0 px-0 w-100 h-100">
+        <div class="row w-100">
+            <div id="confirm-form" class="col-12 col-md-8 col-lg-5 mx-auto px-4 pt-4 pb-5 pb-md-4 text-center">
+                <p class="font-weight-bold">Do you want Delete Task.?</p>
+                <div class="buttons d-flex align-items-center justify-content-around mt-4">
+                    <button type="button" id="remove">Yes, Remove it</button>
+                    <button type="button" id="cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+        <div class="background-blur w-100 h-100 position-absolute"></div>
+    </div>
+    <!------------------------ 
+         Undo Remove Task
+    ------------------------->
+    <div id="undo-box" class="row mx-0 px-0 w-100 h-25 d-flex align-content-end">
+        <div class="box col-10 col-lg-4 bg-light mx-auto d-flex align-items-center justify-content-between px-3 py-1 font-weight-bold">
+            <span>Task Removed</span> <button type="button" class="text-primary font-weight-bold bg-transparent border-0">UNDO</button>
+        </div>
+    </div>
 
 
     <!-- scripts -->

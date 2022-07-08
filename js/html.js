@@ -1,4 +1,5 @@
 class Html{
+    // Show message To User
     showMessage(message){
         // access to the message box
         const messageBox = document.querySelector('#message-box');
@@ -29,6 +30,7 @@ class Html{
             div.remove();
         }, 3300);
     }
+    // Loading task after load page
     loadProgressTasks(tasks){
 
         for (let index = 0; index < tasks.length; index++) {
@@ -46,6 +48,7 @@ class Html{
         
         
     }
+    // Create New Task
     addNewTaskToList(task){
  
         // access to the task list
@@ -107,6 +110,7 @@ class Html{
         // create eventlisteners on options
         this.createOptionsEvent(li, task);
     }
+    // Reset New Task Form
     resetNewTaskForm(){
         // access to the elements
         const newTaskForm = document.querySelector('#new-task-form'),
@@ -126,6 +130,7 @@ class Html{
             priority.checked = false;
         }
     }
+    // Create Edite And Delete Option On Progress Tasks
     createOptionsEvent(li, task){
         // access to the elements
         const optionsBtn = li.querySelector('.icons #optionBtn'),
@@ -133,8 +138,8 @@ class Html{
 
         // FUNCTIONS 
         openAndCloseBox();
-        editeTask();
-        removeTask();
+        editeTaskButton();
+        removeTaskButton();
 
 
         // Open and close option box
@@ -153,7 +158,7 @@ class Html{
         }
 
         // Edite task
-        function editeTask(){
+        function editeTaskButton(){
             // access to the elements
             const editeBtn = optionBox.querySelector('.edite-task'),
                   newTaskForm = document.querySelector('#new-task-form'),
@@ -205,10 +210,18 @@ class Html{
         }
 
         // Remove Task
-        function removeTask(){
-            // 
+        function removeTaskButton(){
+            // Access to the Elements
+            const removeButton = optionBox.querySelector('.remove-task');
+            
+            
+            // Set click event on remove button
+            removeButton.addEventListener('click', () => {
+                html.setDataToConfirmBox(li, 'progress');
+            });
         }
     }
+    // Edite Task
     editeTaskFromDomAndLS(taskId, newTaskObject){
         // access to the all tasks
         const allTasks = JSON.parse(localStorage.getItem('progressTasks'));
@@ -273,5 +286,57 @@ class Html{
             newTaskForm.classList.remove('active');
         }
 
+    }
+    // Set Data To The Confirm Box
+    setDataToConfirmBox(taskLi, status){
+        // access to the Confirm Box
+        const confirmBox = document.querySelector('#confirm-box');
+        // access to the task id
+        const taskId = taskLi.getAttribute('id');
+        // set Data to the confirm box
+        confirmBox.setAttribute('task-id', taskId);
+        confirmBox.setAttribute('status', status);
+
+
+        /*---------------------------
+          Open And Close Confirm box
+        ----------------------------*/
+        // Access To the Elements
+        const container = document.querySelector('.container'),
+        optionsBox = taskLi.querySelector('.optionBox'),
+        bgBlur = confirmBox.querySelector('.background-blur');
+
+
+        // Box Opener 
+        boxOpener();
+        function boxOpener(){
+            // ----- show and active confirm box
+            confirmBox.classList.add('active');
+            optionsBox.classList.remove('active');
+            container.classList.add('blur');
+            // Push new id to browser history
+            window.history.pushState({id:1}, 'id' ,'/projects/todo?id=deleteTask');
+
+            // ----- hide and close confirm box
+            // set click event on bg blur
+            bgBlur.addEventListener('click', () => {
+                closer();
+                // set default url
+                window.history.replaceState({id:1}, 'default url', '/projects/todo');
+            });
+            // set
+            window.addEventListener('popstate', () => {
+                closer();
+            })
+        }
+
+
+        // Box Closer
+        function closer(){
+            container.classList.remove('blur');
+            confirmBox.classList.remove('active');
+            // set default url
+            window.history.replaceState({id:1}, 'default url', '/projects/todo');
+        }
     }
 }

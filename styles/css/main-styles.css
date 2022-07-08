@@ -144,34 +144,11 @@ header #new-task-btn:hover {
   -ms-border-radius: 30px;
   -o-border-radius: 30px;
   font-size: 0.97em;
-}
-#task-list .list-option {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.041);
-  transform: translateX(0px);
-  -webkit-transform: translateX(0px);
-  -moz-transform: translateX(0px);
-  -ms-transform: translateX(0px);
-  -o-transform: translateX(0px);
-  transition: 0.6s;
-  -webkit-transition: 0.6s;
-  -moz-transition: 0.6s;
-  -ms-transition: 0.6s;
-  -o-transition: 0.6s;
-  background-color: #232033;
-}
-#task-list .list-option.slide-right {
-  transform: translateX(-50px);
-  -webkit-transform: translateX(-50px);
-  -moz-transform: translateX(-50px);
-  -ms-transform: translateX(-50px);
-  -o-transform: translateX(-50px);
-  background-color: #232033;
-  border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
-  padding-left: 10px;
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
 }
 #task-list .title {
   word-break: break-all;
@@ -302,19 +279,7 @@ header #new-task-btn:hover {
   background-color: rgb(6, 143, 255);
 }
 
-/*----------------------- 
-    Start Complete Tasks
--------------------------*/
-#complete-list {
-  background-color: #232033;
-  border-radius: 30px;
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
-  -ms-border-radius: 30px;
-  -o-border-radius: 30px;
-  font-size: 0.97em;
-}
-#complete-list .list-option {
+.list-option {
   border-bottom: 1px solid rgba(255, 255, 255, 0.041);
   transform: translateX(0px);
   -webkit-transform: translateX(0px);
@@ -326,10 +291,15 @@ header #new-task-btn:hover {
   -moz-transition: 0.6s;
   -ms-transition: 0.6s;
   -o-transition: 0.6s;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
   background-color: #232033;
-  opacity: 0.6;
 }
-#complete-list .list-option.slide-right {
+
+.list-option.slide-right {
   transform: translateX(-50px);
   -webkit-transform: translateX(-50px);
   -moz-transform: translateX(-50px);
@@ -342,6 +312,49 @@ header #new-task-btn:hover {
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
   padding-left: 10px;
+}
+
+.list-option.remove {
+  background-color: rgb(219, 12, 12);
+  transform: translateX(30px);
+  -webkit-transform: translateX(30px);
+  -moz-transform: translateX(30px);
+  -ms-transform: translateX(30px);
+  -o-transform: translateX(30px);
+  padding-right: 10px;
+  opacity: 0;
+}
+
+.list-option.undo {
+  background-color: rgba(81, 255, 0, 0.534);
+  transform: translateX(0px);
+  -webkit-transform: translateX(0px);
+  -moz-transform: translateX(0px);
+  -ms-transform: translateX(0px);
+  -o-transform: translateX(0px);
+  padding-right: 10px;
+  opacity: 1;
+}
+
+/*----------------------- 
+    Start Complete Tasks
+-------------------------*/
+#complete-list {
+  background-color: #232033;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+  font-size: 0.97em;
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+}
+#complete-list .list-option {
+  opacity: 0.6;
 }
 #complete-list .title {
   word-break: break-all;
@@ -663,8 +676,8 @@ header #new-task-btn:hover {
   color: red;
 }
 
-/*----------------------- 
-    Start New Category
+/*------------------------- 
+     Start New Category
 -------------------------*/
 #categories-form {
   position: fixed;
@@ -795,6 +808,146 @@ header #new-task-btn:hover {
   color: rgb(235, 17, 17);
 }
 
+/*------------------------- 
+ Start Confirm Delete Box
+-------------------------*/
+#confirm-box {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 15;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.2s;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
+}
+#confirm-box .background-blur {
+  width: 100%;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+
+#confirm-box.active {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: all;
+}
+#confirm-box.active #confirm-form {
+  transform: translateY(0);
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+}
+
+#confirm-box #confirm-form {
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  transform: translateY(100px);
+  -webkit-transform: translateY(100px);
+  -moz-transform: translateY(100px);
+  -ms-transform: translateY(100px);
+  -o-transform: translateY(100px);
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+  z-index: 5;
+  background-color: #f5f5f5;
+  min-height: 20vh;
+}
+#confirm-box #confirm-form p {
+  font-size: 1.2em;
+}
+#confirm-box #confirm-form button {
+  color: #1e1b2e;
+  padding: 5px 15px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+}
+#confirm-box #confirm-form #cancel {
+  background-color: rgb(255, 187, 0);
+}
+#confirm-box #confirm-form #cancel:hover {
+  background-color: rgba(32, 42, 51, 0.4509803922);
+}
+#confirm-box #confirm-form #remove {
+  color: #1e1b2e;
+  background-color: #e7e7e7;
+}
+#confirm-box #confirm-form #remove:hover {
+  background-color: #dc3545;
+  color: rgb(245, 245, 245);
+}
+
+/*------------------------- 
+  Start Undo Remove Task
+-------------------------*/
+#undo-box {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+#undo-box .box {
+  height: 50px;
+  background-color: #232033;
+  border-radius: 17px;
+  -webkit-border-radius: 17px;
+  -moz-border-radius: 17px;
+  -ms-border-radius: 17px;
+  -o-border-radius: 17px;
+  transform: translateY(0px);
+  -webkit-transform: translateY(0px);
+  -moz-transform: translateY(0px);
+  -ms-transform: translateY(0px);
+  -o-transform: translateY(0px);
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+  opacity: 0;
+}
+
+#undo-box.active {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: all;
+}
+#undo-box.active .box {
+  transform: translateY(-70px);
+  -webkit-transform: translateY(-70px);
+  -moz-transform: translateY(-70px);
+  -ms-transform: translateY(-70px);
+  -o-transform: translateY(-70px);
+  opacity: 1;
+}
+
 /*------------------------------------------ 
  * * * * * * * *  Mobile Styles * * * * * * 
 ------------------------------------------*/
@@ -817,6 +970,17 @@ header #new-task-btn:hover {
     bottom: 0;
   }
   #categories-section {
+    border-radius: 40px 40px 0 0 !important;
+    -webkit-border-radius: 40px 40px 0 0 !important;
+    -moz-border-radius: 40px 40px 0 0 !important;
+    -ms-border-radius: 40px 40px 0 0 !important;
+    -o-border-radius: 40px 40px 0 0 !important;
+    min-height: 20vh;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+  }
+  #confirm-form {
     border-radius: 40px 40px 0 0 !important;
     -webkit-border-radius: 40px 40px 0 0 !important;
     -moz-border-radius: 40px 40px 0 0 !important;
