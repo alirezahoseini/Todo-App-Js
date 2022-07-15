@@ -58,6 +58,7 @@ function newTask(){
             closer();
             // back to prev history
             window.history.back();
+            console.log('object');
         });
 
 
@@ -569,7 +570,7 @@ function removeTask(){
                 setTimeout(() => {
                     allFromDom[taskIndexes.dom].classList.remove('undo');
                     allFromDom[taskIndexes.dom].classList.remove('remove');
-                }, 200);
+                }, 300);
             }, 200);
 
     

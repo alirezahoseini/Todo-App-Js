@@ -30,14 +30,16 @@ class Html{
             div.remove();
         }, 3300);
     }
+
     // Loading task after load page
     loadProgressTasks(tasks){
 
-        for (let index = 0; index < tasks.length; index++) {
+        for (let index = 0; index < tasks.length ; index++) {
             this.addNewTaskToList(tasks[index]); 
         }
         
     }
+
     updateCompleteTaskList(tasks){
         // access to the task list
         const taskList = document.querySelector('#list');
@@ -48,6 +50,7 @@ class Html{
         
         
     }
+
     // Create New Task
     addNewTaskToList(task){
  
@@ -65,10 +68,10 @@ class Html{
         li.innerHTML = `
         <div class="body d-flex align-items-center col-10 p-0">
             <div class="checkbox-container p-0 d-flex align-items-center justify-content-center mr-2" title="Complete Task">
-                <input type="checkbox" name="${task.title}" >
-                <div class="checkmark d-flex align-items-center justify-content-center">
+                <input type="checkbox" class='checkbox' name="${task.taskId}">
+                <label class="checkmark d-flex align-items-center justify-content-center">
                     <i class="fa-solid fa-check"></i>
-                </div>
+                </label>
             </div>
             <div class="texts ml-2 my-1">
                 <p class='title font-weight-bold'>
@@ -110,6 +113,7 @@ class Html{
         // create eventlisteners on options
         this.createOptionsEvent(li, task);
     }
+
     // Reset New Task Form
     resetNewTaskForm(){
         // access to the elements
@@ -130,16 +134,19 @@ class Html{
             priority.checked = false;
         }
     }
+
     // Create Edite And Delete Option On Progress Tasks
     createOptionsEvent(li, task){
         // access to the elements
         const optionsBtn = li.querySelector('.icons #optionBtn'),
         optionBox = li.querySelector('.optionBox');
+        
 
         // FUNCTIONS 
         openAndCloseBox();
         editeTaskButton();
         removeTaskButton();
+        taskCheckBox();
 
 
         // Open and close option box
@@ -220,7 +227,48 @@ class Html{
                 html.setDataToConfirmBox(li, 'progress');
             });
         }
+
+        // check box
+        function taskCheckBox(){
+            // access to the check box
+            const checkbox = li.querySelector('input[type="checkbox"]');
+            const taskId = li.getAttribute('id');
+            // access to the notifiction audio
+            const audio = document.querySelector('audio');
+
+            // set change event on checkbox
+            checkbox.addEventListener('change', () => {
+                // play audio
+                audio.play();
+                // add task to complete list
+                html.addTaskToCompleteList(task);
+                // hidde and remove task from dom after 200ms
+                setTimeout(() => {
+                    li.classList.add('complete');
+                    setTimeout(() => {
+                        li.remove();
+                    }, 350);
+                }, 200);
+
+
+                // --------- remove task in progressList from local storage
+                let progressTasks = JSON.parse(localStorage.getItem('progressTasks'));
+                progressTasks.forEach((currentTask, index) => {
+                    if(currentTask.taskId == taskId){
+                        progressTasks.splice(index, 1);
+                        localStorage.setItem('progressTasks', JSON.stringify(progressTasks))
+                    }
+                });
+
+                // -------- add task to the complete list from local storage
+                // access to the complete tasks
+                let completeTasks = JSON.parse(localStorage.getItem('completeTasks'));
+                completeTasks.push(task);
+                localStorage.setItem('completeTasks', JSON.stringify(completeTasks));
+            });
+        }
     }
+
     // Edite Task
     editeTaskFromDomAndLS(taskId, newTaskObject){
         // access to the all tasks
@@ -287,6 +335,7 @@ class Html{
         }
 
     }
+
     // Set Data To The Confirm Box
     setDataToConfirmBox(taskLi, status){
         // access to the Confirm Box
@@ -338,5 +387,10 @@ class Html{
             // set default url
             window.history.replaceState({id:1}, 'default url', '/projects/todo');
         }
+    }
+
+    // add new task to complete list
+    addTaskToCompleteList(task){
+        console.log(task);
     }
 }

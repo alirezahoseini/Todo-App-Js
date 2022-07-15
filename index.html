@@ -17,6 +17,7 @@
 
     <!-- Container start -->
     <div class="container">
+        <audio src="./files/mp3/complete.mp3"></audio>
 
         <!----------------------- 
                 Start Header 
@@ -88,7 +89,7 @@
                 <div id="task-list" class="px-3 p-0 py-4 p-lg-4">
                     <!-- Start Header  -->
                     <div class="header d-flex align-items-center justify-content-between  row">
-                        <h6 class="col-6 col-lg-3 font-weight-bold">Todays Tasks</h6>
+                        <h6 class="col-6 col-lg-3 font-weight-bold">Progress Tasks</h6>
                         <div class="icons d-flex align-items-center justify-content-end col-4 col-lg-1">
                             <i class="fa-duotone fa-search mr-4"></i>
                             <i class="fa-duotone fa-filter d-inline-block"></i>
@@ -122,10 +123,10 @@
                         <li class="list-option mt-3 pb-2 row position-relative d-flex align-items-center" priority="low" id="3245" complete="true">
                             <div class="body d-flex align-items-center col-10 p-0">
                                 <div class="checkbox-container p-0 d-flex align-items-center justify-content-center mr-2 " title="unComplete Task">
-                                    <input type="checkbox" name="${task.title}" checked>
-                                    <div class="checkmark d-flex align-items-center justify-content-center">
+                                    <input type="checkbox" class="checkbox" name="${task.title}" checked>
+                                    <label class="checkmark d-flex align-items-center justify-content-center">
                                         <i class="fa-solid fa-check"></i>
-                                    </div>
+                                    </label>
                                 </div>
                                 <div class="texts ml-2 my-1">
                                     <p class='title font-weight-bold'>

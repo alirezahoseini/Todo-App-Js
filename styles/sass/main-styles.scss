@@ -28,7 +28,6 @@ body{
 }
 
 
-
 /*-------------------
         Header 
 --------------------*/
@@ -206,52 +205,50 @@ header{
         font-size: .83em;
     }
     .priority.High{
-        background-color: rgba(37, 90, 189, 0.192);
-        color: rgb(0, 157, 248);
+        background-color: rgba(255, 0, 0, 0.13);
+        color: rgb(255, 45, 45);
     }
     .priority.Medium{
         background-color: rgba(255, 177, 74, 0.103);
         color: rgb(255, 115, 0);
     }
     .priority.Low{
-        background-color: rgba(255, 0, 0, 0.13);
-        color: rgb(255, 45, 45);
-    }
-    
+        background-color: rgba(37, 90, 189, 0.192);
+        color: rgb(0, 157, 248);
+    } 
 }
 .checkbox-container{
-    width: 25px;
-    height: 25px;
+    min-width: 25px;
+    min-height: 25px;
     border: 2px solid $textMuted;
     @include borderRadius(8px);
     cursor: pointer;
     position: relative;
 
-    input{
-        display: inline-block;
-        width: 95%;
-        height: 95%;
-        opacity: 0;
-        cursor: pointer;
-    }
-    .checkmark{
-        width: 25px;
-        height: 25px;
-        position: absolute;
-        top: -2px;
-        right: -2px;
-        pointer-events: none;
-        cursor: pointer;
-        font-size: .8em;
-        color: transparent;
-        padding-left: 1px;
-        @include borderRadius(8px);
-        @include transition(.1s);
-    }
-    input:checked ~ .checkmark{
-        color: $textColor;
-        background-color: $bgBlueColor;
-    }
+}
+.checkbox{
+    display: inline-block;
+    opacity: 0;
+    cursor: pointer;
+}
+.checkmark{
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    pointer-events: none;
+    cursor: pointer;
+    font-size: .8em;
+    color: transparent;
+    padding-left: 1px;
+    @include borderRadius(8px);
+    @include transition(.1s);
+}
+.checkbox:checked ~ label{
+    color: $textColor;
+    background-color: $bgBlueColor;
+    opacity: 1;
 }
 .list-option{
     border-bottom: 1px solid rgba(255, 255, 255, 0.041);
@@ -267,16 +264,25 @@ header{
     padding-left: 10px;
 }
 .list-option.remove{
-    background-color: rgb(219, 12, 12);
+    background: linear-gradient(90deg, $bgSecondaryColor, $dangerColor);
     @include transform(translateX(30px));
     padding-right: 10px;
     opacity: 0;
+    padding: 0 10px;
 }
 .list-option.undo{
-    background-color: rgba(81, 255, 0, 0.534);
+    background: linear-gradient(90deg, $bgSecondaryColor, rgba(0, 153, 255, 0.534));
     @include transform(translateX(0px));
     padding-right: 10px;
     opacity: 1;
+    padding: 0 10px;
+}
+.list-option.complete{
+    background: linear-gradient(90deg, $bgSecondaryColor, $successColor);
+    @include transform(translateX(30px));
+    padding-right: 10px;
+    opacity: 0;
+    padding: 0 10px;
 }
 
 
@@ -316,18 +322,17 @@ header{
         font-size: .83em;
     }
     .priority.High{
-        background-color: rgba(37, 90, 189, 0.192);
-        color: rgb(0, 157, 248);
+        background-color: rgba(255, 0, 0, 0.13);
+        color: rgb(255, 45, 45);
     }
     .priority.Medium{
         background-color: rgba(255, 177, 74, 0.103);
         color: rgb(255, 115, 0);
     }
     .priority.Low{
-        background-color: rgba(255, 0, 0, 0.13);
-        color: rgb(255, 45, 45);
-    }
-    
+        background-color: rgba(37, 90, 189, 0.192);
+        color: rgb(0, 157, 248);
+    } 
 }
 
 
@@ -521,16 +526,17 @@ header{
         @include transition(.2s);
     }
     #High:checked ~ label{
-        background-color: rgb(219, 219, 255);
-        color: rgb(0, 0, 248);
+        background-color: rgb(255, 219, 219);
+        color: red;
     }
     #Medium:checked ~ label{
         background-color: rgb(255, 244, 184);
         color: rgb(255, 115, 0);
     }
     #Low:checked ~ label{
-        background-color: rgb(255, 219, 219);
-        color: red;
+        background-color: rgb(219, 219, 255);
+        color: rgb(0, 0, 248);
+
     }
 }
 
