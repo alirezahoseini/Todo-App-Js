@@ -41,12 +41,9 @@ class Html{
     }
 
     updateCompleteTaskList(tasks){
-        // access to the task list
-        const taskList = document.querySelector('#list');
-
-        // created li 
-        const li = document.createElement('li');
-        li.classList = 'list-option mt-3 row';
+        for (let index = 0; index < tasks.length ; index++) {
+            this.addTaskToCompleteList(tasks[index]); 
+        }
         
         
     }
@@ -58,7 +55,7 @@ class Html{
         const taskList = document.querySelector('#list');
         // created li 
         const li = document.createElement('li');
-        li.classList = 'list-option slide-right mt-3 pb-2 row position-relative d-flex align-items-center';
+        li.classList = 'list-option slide-up mt-3 pb-2 row position-relative d-flex align-items-center';
         li.setAttribute('priority', task.priority);
         li.setAttribute('id', task.taskId);
         li.setAttribute('complete', task.complete);
@@ -106,7 +103,7 @@ class Html{
         taskList.insertBefore(li, taskList.children[0]);
         // remove slide-right class on li
         setTimeout(() => {
-            li.classList.remove('slide-right');
+            li.classList.remove('slide-up');
         }, 10);
         
 
@@ -391,6 +388,113 @@ class Html{
 
     // add new task to complete list
     addTaskToCompleteList(task){
-        console.log(task);
+        // access to the complete list
+        const completeList = document.querySelector('#complete-list ul');
+        
+
+        // created templete
+        const li = document.createElement('li');
+        li.classList = 'list-option slide-up mt-3 pb-2 row position-relative d-flex align-items-center';
+        li.setAttribute('priority',task.priority);
+        li.setAttribute('id',task.taskId);
+        
+        //
+        li.innerHTML = `
+        <div class="body d-flex align-items-center col-10 p-0">
+            <div class="checkbox-container p-0 d-flex align-items-center justify-content-center mr-2 " title="Complete Task">
+                <input type="checkbox" class="checkbox" name="${task.title}" checked>
+                <label class="checkmark d-flex align-items-center justify-content-center">
+                    <i class="fa-solid fa-check"></i>
+                </label>
+            </div>
+            <div class="texts ml-2 my-1">
+                <p class='title font-weight-bold'>
+                    ${task.title}
+                </p>
+                <span class='category mr-3'>
+                    ${task.category}
+                </span>
+                <span class='priority mr-3  ${task.priority}'>
+                    ${task.priority}
+                </span>
+            </div>
+        </div>
+        <div class="options ml-auto mt-2 col-2 col-md-1 p-0 pr-1 d-flex align-items-center justify-content-end">
+            <i class="fa-duotone fa-trash remove-btn" title="Remove Task"></i>
+        </div>
+        `;
+        
+        // Append li tag to the comlete list
+        completeList.insertBefore( li,completeList.firstElementChild);
+        setTimeout(() => {
+            li.classList.remove('slide-up');
+        }, 100);
+
+        // run item options
+        createdCompleteTaskOptions();
+        function createdCompleteTaskOptions(){
+            /*---------------------------------
+                        unDone task
+            -----------------------------------*/
+            const checkBox = li.querySelector('input[type="checkbox"]');
+
+            // set change event on check box
+            checkBox.addEventListener('change', () =>{
+                // Add task to the progress list DOM AND LOCALSTORGE
+                html.addNewTaskToList(task);
+                // access to the progress task from localstorage
+                let progressTaskFromLS = JSON.parse(localStorage.getItem('progressTasks'));
+                // push task
+                progressTaskFromLS.push(task);
+                // update progress task in the LocalStorgae
+                localStorage.setItem('progressTasks', JSON.stringify(progressTaskFromLS));
+
+
+                // remove task from complete list DOM AND LOCALSTORAGE
+                li.classList.add('unComplete');
+                setTimeout(() => {
+                    li.remove();
+                }, 150);
+
+                // access complete task from LocalStorage
+                let completeTaskfromLS = JSON.parse(localStorage.getItem('completeTasks'));
+                
+                completeTaskfromLS.forEach((taskFromLS, index) => {
+                    if(task.taskId === taskFromLS.taskId){
+                        // remove current task from LOCALSTORAGE
+                        completeTaskfromLS.splice(index,1);
+                        // set new list to ls
+                        localStorage.setItem('completeTasks', JSON.stringify(completeTaskfromLS));
+                    }
+                });
+            });
+
+            /*---------------------------------
+                        Remove task
+            -----------------------------------*/
+            const removeBtn = li.querySelector('.remove-btn');
+
+            removeBtn.addEventListener('click', () => {
+                // remove task from complete list DOM AND LOCALSTORAGE
+                li.classList.add('remove');
+                setTimeout(() => {
+                    li.remove();
+                }, 200);
+
+                // access complete task from LocalStorage
+                let completeTaskfromLS = JSON.parse(localStorage.getItem('completeTasks'));
+                
+                completeTaskfromLS.forEach((taskFromLS, index) => {
+                    if(task.taskId === taskFromLS.taskId){
+                        // remove current task from LOCALSTORAGE
+                        completeTaskfromLS.splice(index,1);
+                        // set new list to ls
+                        localStorage.setItem('completeTasks', JSON.stringify(completeTaskfromLS));
+                    }
+                });
+            })
+
+
+        }
     }
 }

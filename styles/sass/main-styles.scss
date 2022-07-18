@@ -253,15 +253,14 @@ header{
 .list-option{
     border-bottom: 1px solid rgba(255, 255, 255, 0.041);
     @include transform(translateX(0px));
-    @include transition(.6s);
+    @include transition(.4s);
     @include borderRadius(10px);
     background-color: $bgSecondaryColor;
 }
-.list-option.slide-right{
-    @include transform(translateX(-50px));
+.list-option.slide-up{
+    @include transform(translateY(-50px));
     background-color: $bgSecondaryColor;
     @include borderRadius(10px);
-    padding-left: 10px;
 }
 .list-option.remove{
     background: linear-gradient(90deg, $bgSecondaryColor, $dangerColor);
@@ -279,10 +278,17 @@ header{
 }
 .list-option.complete{
     background: linear-gradient(90deg, $bgSecondaryColor, $successColor);
-    @include transform(translateX(30px));
+    @include transform(translateY(30px));
     padding-right: 10px;
     opacity: 0;
-    padding: 0 10px;
+    // padding: 0 10px;
+}
+.list-option.unComplete{
+    background: linear-gradient(90deg, $bgSecondaryColor, $bgDarkBlueColor);
+    @include transform(translateY(-30px));
+    // padding-right: 10px;
+    opacity: 0;
+    // padding: 0 10px;
 }
 
 

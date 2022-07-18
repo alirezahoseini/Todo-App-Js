@@ -363,7 +363,7 @@ function newTask(){
 
 
         // if  complete tasks is nul === created empty array
-        if(completeData === null || progressData == '' || progressData == '[]'){
+        if(completeData === null || completeData == '' || completeData == '[]'){
             localStorage.setItem('completeTasks', '[]');
             completeTasks = [];
         }
