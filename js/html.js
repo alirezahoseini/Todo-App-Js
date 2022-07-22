@@ -109,6 +109,7 @@ class Html{
 
         // create eventlisteners on options
         this.createOptionsEvent(li, task);
+
     }
 
     // Reset New Task Form
@@ -262,7 +263,12 @@ class Html{
                 let completeTasks = JSON.parse(localStorage.getItem('completeTasks'));
                 completeTasks.push(task);
                 localStorage.setItem('completeTasks', JSON.stringify(completeTasks));
+
+                // update progress chart
+                html.progressChart('update');
             });
+
+            
         }
     }
 
@@ -467,6 +473,9 @@ class Html{
                         localStorage.setItem('completeTasks', JSON.stringify(completeTaskfromLS));
                     }
                 });
+
+                // update progress chart
+                html.progressChart('update');
             });
 
             /*---------------------------------
@@ -492,9 +501,98 @@ class Html{
                         localStorage.setItem('completeTasks', JSON.stringify(completeTaskfromLS));
                     }
                 });
+                console.log('update');
+                html.progressChart('update');
             })
 
 
         }
+    }
+
+    // Progress Chart
+    progressChart(status){
+        // access to the data from LocalStorage 
+        const progressTasksLength = JSON.parse(localStorage.getItem('progressTasks')).length,
+              completeTasksLength = JSON.parse(localStorage.getItem('completeTasks')).length;
+              
+        // access to the chart element
+        const chartElement = document.querySelector('#progress-chart svg #inner-line'),
+              currentNumber = document.querySelector('#progress-chart .number');
+
+        // Calculate progress percentage 
+        let percent = (100 / (completeTasksLength + progressTasksLength));
+        percent = Math.floor(completeTasksLength * percent);
+        
+        // if percent == NaN ===> percent = 0
+        if(isNaN(percent)){
+            percent = 0;
+        }
+
+        /*
+            if status = first loaded ===> calculate and set percent value
+        */
+       ///// ------------- Update chart
+       if(status !== 'firstLoaded'){
+           // access to previous percentage
+           const prevPercent = Number(chartElement.getAttribute('percent'));
+        
+            // chart lower
+            if(percent > prevPercent){
+                
+                // set percent to DOM
+                chartElement.setAttribute('percent', percent);
+                // set percent number to chart
+                let counter = prevPercent;
+                const interval = setInterval(() => {
+                    chartElement.style.strokeDashoffset = `calc(201 - (196 * ${counter}) / 100)`;
+                    currentNumber.innerHTML = counter + '%'
+
+                    // stop interval
+                    if(counter == percent){
+                        clearInterval(interval);
+                    }
+
+                    counter++;
+                }, 17); 
+            }else{
+                // set percent to DOM
+                chartElement.setAttribute('percent', percent);
+                // set percent number to chart
+                let counter = prevPercent;
+                const interval = setInterval(() => {
+                    chartElement.style.strokeDashoffset = `calc(201 - (196 * ${counter}) / 100)`;
+                    currentNumber.innerHTML = counter + '%'
+
+                    // stop interval
+                    if(counter == percent || counter == 0){
+                        clearInterval(interval);
+                    }
+
+                    counter--;
+                }, 17); 
+            }
+       ///// ------------- First loaded chart
+        }else if(percent >= 0){
+            // set percent to DOM
+            chartElement.setAttribute('percent', percent);
+            // set percent number to chart
+            let counter = 0;
+            const interval = setInterval(() => {
+                chartElement.style.strokeDashoffset = `calc(201 - (196 * ${counter}) / 100)`;
+                currentNumber.innerHTML = counter + '%'
+
+                // stop interval
+                if(counter == percent){
+                    clearInterval(interval);
+                }
+
+                counter++;
+            }, 17); 
+        }
+
+        // ---------- Complete tasks counter
+        const tasksCounter  =document.querySelector('.tasks-counter p');
+
+        tasksCounter.innerHTML = `${completeTasksLength} Task`
     }
 }

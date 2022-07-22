@@ -11,6 +11,7 @@ const html= new Html();
 document.addEventListener('DOMContentLoaded', () => {
     newTask();
     removeTask();
+    html.progressChart('firstLoaded');
 });
 
 
@@ -58,7 +59,6 @@ function newTask(){
             closer();
             // back to prev history
             window.history.back();
-            console.log('object');
         });
 
 
@@ -94,7 +94,8 @@ function newTask(){
             const title =  newTaskForm.querySelector('#title'),
                   category = newTaskForm.querySelector('input[name="select-category"]:checked'),
                   priority = newTaskForm.querySelector('input[name="priority"]:checked');
-
+            // 
+            progressTasks = JSON.parse(localStorage.getItem('progressTasks'));
             
             // access to the task length
             let taskLength = JSON.parse(localStorage.getItem('progressTasks'));
@@ -139,6 +140,9 @@ function newTask(){
                 createdNewTask(task);
                 // REST FORM
                 html.resetNewTaskForm();
+
+                // update progress chart
+                html.progressChart('update');
             }
         })
     }
@@ -392,10 +396,7 @@ function newTask(){
         return Math.floor((1 + Math.random()) * 0x10000)
             .toString(16)
             .substring(1);
-    }
-
-
-    
+    }  
 }
 
 
@@ -479,6 +480,10 @@ function removeTask(){
             lsData = JSON.stringify(lsData);
             // Set LsData to LocalStorage
             localStorage.setItem(`${taskIndexes.status}Tasks`, lsData);
+
+            
+            // update progress chart
+            html.progressChart('update');
         }, 3000);
     });
 

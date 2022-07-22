@@ -120,17 +120,11 @@ header #new-task-btn:hover {
   stroke: #636363;
 }
 .task-progress .circle svg circle:nth-child(2) {
-  stroke-dashoffset: 103;
   stroke: rgb(0, 182, 238);
 }
 .task-progress .circle .number {
   position: absolute;
   font-weight: bold;
-}
-
-#in-progress-tasks .circle svg circle:nth-child(2) {
-  stroke-dashoffset: 157.68;
-  stroke: rgb(149, 130, 233);
 }
 
 /*----------------------- 
