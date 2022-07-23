@@ -59,6 +59,8 @@ class Html{
         li.setAttribute('priority', task.priority);
         li.setAttribute('id', task.taskId);
         li.setAttribute('complete', task.complete);
+        li.setAttribute('category', task.category);
+        li.setAttribute('title', task.title);
 
 
         // Created template
@@ -118,7 +120,8 @@ class Html{
         const newTaskForm = document.querySelector('#new-task-form'),
         title =  newTaskForm.querySelector('#title'),
         category = newTaskForm.querySelector('input[name="select-category"]:checked'),
-        priority = newTaskForm.querySelector('input[name="priority"]:checked');
+        priority = newTaskForm.querySelector('input[name="priority"]:checked'),
+        formTitle = newTaskForm.querySelector('.form-title');
 
         if(newTaskForm.classList.contains('edite')){
             newTaskForm.classList.remove('edite');
@@ -131,6 +134,8 @@ class Html{
         if(priority !== null){
             priority.checked = false;
         }
+
+        formTitle.innerHTML = 'New Task'
     }
 
     // Create Edite And Delete Option On Progress Tasks
@@ -187,7 +192,8 @@ class Html{
                 const currentTask = progressTasks[taskIndex];
                 // access to the radio inputs
                 const category = newTaskForm.querySelector(`input#${currentTask.category}`),
-                priority = newTaskForm.querySelector(`input#${currentTask.priority}`);
+                priority = newTaskForm.querySelector(`input#${currentTask.priority}`),
+                formTitle = newTaskForm.querySelector(`.form-title`);
 
                 // open form
                 newTaskForm.classList.add('active');
@@ -208,6 +214,9 @@ class Html{
                 container.classList.add('blur');
                 // close option box
                 optionBox.classList.remove('active');
+                // change form title
+                formTitle.innerHTML = 'Edite Task';
+
 
                 // Push new id to browser history
                 window.history.pushState({id:1}, 'id' ,'/projects/todo?id=CreatedNewTask');
@@ -238,8 +247,14 @@ class Html{
             checkbox.addEventListener('change', () => {
                 // play audio
                 audio.play();
+
+                // access to the new taskdata
+                const taskData = findTaskData();
+
+
+
                 // add task to complete list
-                html.addTaskToCompleteList(task);
+                html.addTaskToCompleteList(taskData);
                 // hidde and remove task from dom after 200ms
                 setTimeout(() => {
                     li.classList.add('complete');
@@ -261,13 +276,33 @@ class Html{
                 // -------- add task to the complete list from local storage
                 // access to the complete tasks
                 let completeTasks = JSON.parse(localStorage.getItem('completeTasks'));
-                completeTasks.push(task);
+                completeTasks.push(taskData);
                 localStorage.setItem('completeTasks', JSON.stringify(completeTasks));
 
                 // update progress chart
                 html.progressChart('update');
             });
 
+            // Find Task Data
+            function findTaskData(){
+                let taskData = {};
+
+                const priority = li.getAttribute('priority'),
+                      id = li.getAttribute('id'),
+                      complete = li.getAttribute('complete'),
+                      category = li.getAttribute('category'),
+                      title = li.getAttribute('title');
+
+                taskData = {
+                    title : title,
+                    taskId : id,
+                    category : category,
+                    priority : priority,
+                    complete : complete
+                }
+
+                return taskData;
+            }
             
         }
     }
@@ -323,6 +358,8 @@ class Html{
                   priority = taskDiv.querySelector('.priority');
 
             taskDiv.setAttribute('priority', newTaskObject.priority);
+            taskDiv.setAttribute('title', newTaskObject.title);
+            taskDiv.setAttribute('category', newTaskObject.category);
             title.innerHTML = newTaskObject.title;
             category.innerHTML = newTaskObject.category;
             priority.classList = `priority mr-3 ${newTaskObject.priority}`

@@ -89,10 +89,18 @@
                 <div id="task-list" class="px-3 p-0 py-4 p-lg-4">
                     <!-- Start Header  -->
                     <div class="header d-flex align-items-center justify-content-between  row">
-                        <h6 class="col-6 col-lg-3 font-weight-bold">Progress Tasks</h6>
+                        <h6 class="col-6 col-lg-3 font-weight-bold list-title">Progress Tasks</h6>
                         <div class="icons d-flex align-items-center justify-content-end col-4 col-lg-1">
-                            <i class="fa-duotone fa-search mr-4"></i>
-                            <i class="fa-duotone fa-filter d-inline-block"></i>
+                            <div class="mr-4 d-flex align-items-center" id="search">
+                                <div class="">
+                                    <i class="fa-duotone fa-xmark-circle close-search"></i>
+                                    <i class="fa-duotone fa-search search-icon"></i>
+                                </div>
+                                <input type="text" name="search-input" id="search-input" placeholder="Search" class="pl-2" maxlength="30">
+                            </div>
+                            <div class="">
+                                <i class="fa-duotone fa-filter d-inline-block"></i>
+                            </div>
                         </div>
                     </div>
                     <!-- End of Header  -->
@@ -125,6 +133,14 @@
                 </div>
             </div>
         </div>
+        <!------------------------ 
+              Start Footer
+        ------------------------->
+        <footer>
+            <p>Todo App v1.1</p>
+            <p>Made by <a href="http://a-hosseini.ir/" target="_blank">Alireza Hoseyni</a></p>
+        </footer>
+
     </div>
     <!-- Container End -->
     <!------------------------ 
@@ -135,7 +151,7 @@
             <form class="col-12 col-md-8 col-lg-5 mx-auto px-4 pt-3" id="created-new-task">
                 <!-- Start Header  -->
                 <div class="header text-white d-flex align-items-center justify-content-center mb-4">
-                    <p class="h5 text-dark">Create a task</p>
+                    <p class="h5 text-dark form-title">Create a task</p>
                 </div>
                 <!-- End of Header  -->
                 <label for="title">Task title</label>

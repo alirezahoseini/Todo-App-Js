@@ -11,6 +11,7 @@ const html= new Html();
 document.addEventListener('DOMContentLoaded', () => {
     newTask();
     removeTask();
+    search();
     html.progressChart('firstLoaded');
 });
 
@@ -586,4 +587,83 @@ function removeTask(){
     }
   
 
+}
+
+
+
+/*------------------------
+  Search in Progress Tasks
+-------------------------*/
+function search(){
+    // Access to the elements
+    const searchInput = document.querySelector('#search input');
+
+
+    // functions 
+    openAndCloser();
+    changeInput();
+
+
+    // Open and close search box
+    function openAndCloser(){
+        // Access to the elements
+        const searchBox = document.querySelector('#search'),
+              searchOpenerBtn = searchBox.querySelector('.search-icon'),
+              searchCloserBtn = searchBox.querySelector('.close-search'),
+              listTitle = document.querySelector('.list-title');
+
+        // Open Searchbox
+        searchOpenerBtn.addEventListener('click', () =>{
+            searchBox.classList.add('active');
+            setTimeout(() => {
+                // focus in input
+                searchInput.focus();
+            }, 30);
+
+            // access to the screen width
+            const screenWidth = window.innerWidth;
+            // hidde list title in mobile
+            if(screenWidth <= 500){
+                listTitle.classList.add('hidde');
+            }
+
+        });
+
+        // Close Searchbox
+        searchCloserBtn.addEventListener('click', () =>{
+            searchBox.classList.remove('active');
+            listTitle.classList.remove('hidde');
+
+            //// --------- Reset search 
+            // access to the all li tags
+            const liTags = document.querySelectorAll('#list li');
+            // clear search input value
+            searchInput.value = '';
+            // show all tags
+            liTags.forEach(element => {
+                element.classList.remove('hidde');
+            });
+        });
+    }
+
+    //
+    function changeInput(){
+        searchInput.addEventListener('input', () => {
+            // access to the tasks
+            const tasks = document.querySelectorAll('#list li');
+            const value = searchInput.value.toLowerCase();
+            // Each in tags
+            tasks.forEach(liTag => {
+                // check search value
+                const checking = liTag.title.toLowerCase().includes(value);
+                // Show tag
+                if(checking){
+                    liTag.classList.remove('hidde')
+                }else{
+                    // Hidde tag
+                    liTag.classList.add('hidde')
+                }
+            });  
+        })
+    }
 }

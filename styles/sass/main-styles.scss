@@ -148,6 +148,10 @@ header{
         word-break: break-all;
         text-transform: capitalize;
     }
+    .list-title.hidde{
+        opacity: 0;
+        @include transition(.2s);
+    }
     .icons i {
         font-size: 1.2em;
         color: rgb(255, 255, 255);
@@ -285,7 +289,60 @@ header{
     opacity: 0;
     // padding: 0 10px;
 }
+.list-option.hidde{
+    display: none !important;
+}
 
+/*------------------------ 
+ Start Search in task list
+-------------------------*/
+#search{
+    background-color: transparent;
+    padding: 10px;
+    @include borderRadius(12px);
+    @include transition(.3s);
+
+    input{
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: white;
+        visibility: hidden;
+        width: 0;
+        opacity: 0;
+        @include transition(all .5s );
+    }
+    .search-icon{
+        @include transition(.3s);
+    }
+    .close-search{
+        position: absolute;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        @include transition(.3s);
+        margin-top: 2px;
+    }
+}
+#search.active{
+    background-color: $bgDarkColor;
+
+    input{
+        width: auto;
+        opacity: 1;
+        visibility: visible;
+    }
+    .close-search{
+        position: absolute;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: all;
+    }
+    .search-icon{
+        visibility: hidden;
+        opacity: 0;
+    }
+}
 
 /*----------------------- 
     Start Complete Tasks

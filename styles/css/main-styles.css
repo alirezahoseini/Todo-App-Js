@@ -148,6 +148,14 @@ header #new-task-btn:hover {
   word-break: break-all;
   text-transform: capitalize;
 }
+#task-list .list-title.hidde {
+  opacity: 0;
+  transition: 0.2s;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
+}
 #task-list .icons i {
   font-size: 1.2em;
   color: rgb(255, 255, 255);
@@ -351,6 +359,80 @@ header #new-task-btn:hover {
   -moz-transform: translateY(-30px);
   -ms-transform: translateY(-30px);
   -o-transform: translateY(-30px);
+  opacity: 0;
+}
+
+.list-option.hidde {
+  display: none !important;
+}
+
+/*------------------------ 
+ Start Search in task list
+-------------------------*/
+#search {
+  background-color: transparent;
+  padding: 10px;
+  border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+}
+#search input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  visibility: hidden;
+  width: 0;
+  opacity: 0;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
+}
+#search .search-icon {
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+}
+#search .close-search {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+  margin-top: 2px;
+}
+
+#search.active {
+  background-color: #1e1b2e;
+}
+#search.active input {
+  width: auto;
+  opacity: 1;
+  visibility: visible;
+}
+#search.active .close-search {
+  position: absolute;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+#search.active .search-icon {
+  visibility: hidden;
   opacity: 0;
 }
 
