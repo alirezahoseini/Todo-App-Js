@@ -241,7 +241,7 @@ class Html{
             const checkbox = li.querySelector('input[type="checkbox"]');
             const taskId = li.getAttribute('id');
             // access to the notifiction audio
-            const audio = document.querySelector('audio');
+            const audio = document.querySelector('#complete-sound');
 
             // set change event on checkbox
             checkbox.addEventListener('change', () => {
@@ -405,6 +405,9 @@ class Html{
             container.classList.add('blur');
             // Push new id to browser history
             window.history.pushState({id:1}, 'id' ,'/projects/todo?id=deleteTask');
+            // access to the delete sound
+            const deleteSound = document.querySelector('#delete-sound');
+            deleteSound.play();
 
             // ----- hide and close confirm box
             // set click event on bg blur
@@ -483,6 +486,9 @@ class Html{
 
             // set change event on check box
             checkBox.addEventListener('change', () =>{
+                // access to the unComplete sound
+                const unCompleteSound = document.querySelector('#unComplete-sound');
+                unCompleteSound.play();
                 // Add task to the progress list DOM AND LOCALSTORGE
                 html.addNewTaskToList(task);
                 // access to the progress task from localstorage
