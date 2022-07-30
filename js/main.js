@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     newTask();
     removeTask();
     search();
+    filterTasks();
     html.progressChart('firstLoaded');
 });
 
@@ -665,5 +666,112 @@ function search(){
                 }
             });  
         })
+    }
+}
+
+
+
+/*------------------------
+  Filte in Progress Tasks
+-------------------------*/
+function filterTasks(){
+    // Access to the elements
+    const filterBox = document.querySelector('#filter-box');
+
+
+    ///Functions 
+    openAndCloser();
+    selectFilter();
+
+
+    // Open And colse filter box
+    function openAndCloser(){
+        // Access to the filter button
+        const filterOpenerBtn = document.querySelector('.filter-opener');
+
+        filterOpenerBtn.addEventListener('click', () => {
+            // Access to the search box
+            const searchBox = document.querySelector('#search');
+            if(searchBox.classList.contains('active')){searchBox.classList.remove('active')}
+
+            if(filterBox.classList.contains('active')){
+                filterOpenerBtn.classList.replace('fa-xmark-circle','fa-filter');
+            }else{
+                filterOpenerBtn.classList.replace('fa-filter','fa-xmark-circle');
+            }
+            filterBox.classList.toggle('active');
+            
+        });
+
+
+    }
+
+
+    // Select Filter
+    function selectFilter(){
+        // access to the filter buttons
+        const filterButtons = filterBox.querySelectorAll('li');
+
+        filterButtons.forEach((button, index) =>{
+            button.addEventListener('click', () => {
+                const buttonId = button.getAttribute('data-id');
+
+                if(buttonId === 'priority'){
+                    sortTasksByPriority()
+                }else if(buttonId === 'date'){
+                    /// clear progress list
+                    const progressList = document.querySelector('#list');
+                    progressList.innerHTML = '';
+
+                    const allTasks = JSON.parse(localStorage.getItem('progressTasks'));
+
+                    allTasks.map((task)=> html.addNewTaskToList(task))
+
+                }
+
+                // active button
+                const buttons = document.querySelectorAll('#filter-box li');
+                buttons.forEach((button) => {button.classList.remove('active')});
+                button.classList.add('active');
+
+                // close filter box
+                // Access to the filter button
+                const filterOpenerBtn = document.querySelector('.filter-opener');
+                filterOpenerBtn.classList.replace('fa-xmark-circle','fa-filter');
+                filterBox.classList.remove('active')
+            });
+        })
+    }
+
+
+    // Sort Tasks by priority
+    function sortTasksByPriority(){
+        const allTasks = JSON.parse(localStorage.getItem('progressTasks'));
+
+        let lowTasks = [];
+        let mediumTasks = [];
+        let highTasks = [];
+
+        allTasks.forEach((task)=>{
+            if(task.priority == 'Low'){
+                lowTasks.push(task);
+            }else if(task.priority == 'Medium'){
+                mediumTasks.push(task);
+            }else{
+                highTasks.push(task);
+            }
+        });
+
+        // push tasks to sorted array
+        const sortedTasksArray = [];
+        lowTasks.map((task) => sortedTasksArray.push(task));
+        mediumTasks.map((task) => sortedTasksArray.push(task));
+        highTasks.map((task) => sortedTasksArray.push(task));
+        /// clear progress list
+        const progressList = document.querySelector('#list');
+        progressList.innerHTML = '';
+        // show sorted task 
+        sortedTasksArray.map((task)=> html.addNewTaskToList(task));
+        
     }
 }

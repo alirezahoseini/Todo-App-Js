@@ -344,6 +344,48 @@ header{
     }
 }
 
+
+/*------------------------ 
+ Start filter in task list
+-------------------------*/
+#filter-box{
+    position: absolute;
+    top: 10px;
+    right: 45px;
+    background-color: rgb(53, 53, 53);
+    min-width: 150px;
+    z-index: 10;
+    @include borderRadius(12px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    @include transform(translate(10px , 5px));
+    @include transition(.2s);
+
+    li{
+        padding: 8px;
+        @include borderRadius(12px);
+        cursor: pointer;
+
+
+        &:hover{
+            background-color: rgb(32, 32, 32);
+        }
+    }
+    li.active{
+        background-color: rgb(78, 78, 78);
+    }
+
+}
+#filter-box.active{
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+    @include transform(translate(0px , 0px));
+
+}
+
+
 /*----------------------- 
     Start Complete Tasks
 -------------------------*/
@@ -352,6 +394,7 @@ header{
     @include borderRadius(30px);
     font-size: .97em;
     @include transition(.3s);
+
 
     .list-option{
     opacity: .6;

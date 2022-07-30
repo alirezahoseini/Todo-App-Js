@@ -102,7 +102,21 @@
                                 <input type="text" name="search-input" id="search-input" placeholder="Search" class="pl-2" maxlength="30">
                             </div>
                             <div class="">
-                                <i class="fa-duotone fa-filter d-inline-block"></i>
+                                <i class="fa-duotone fa-filter d-inline-block filter-opener"></i>
+                                <ul id="filter-box">
+                                    <li data-id="priority" class="d-flex align-items-center">
+                                        <i class="fa-duotone fa-fire mr-2"></i>
+                                        Sort by Priority
+                                    </li>
+                                    <!-- <li data-id="category" class="d-flex align-items-center">
+                                        <i class="fa-duotone fa-list-ol mr-2"></i>
+                                        Sort by Category
+                                    </li> -->
+                                    <li data-id="date" class="d-flex align-items-center active">
+                                        <i class="fa-duotone fa-clock mr-2"></i>
+                                        Sort by Date
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
