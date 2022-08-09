@@ -15,7 +15,7 @@ Todo app is a web application for managing daily tasks.
 - Custom priority
 - Custom Categories
 - Search and Filter
-- Edite Tasks
+- Edit Tasks
 - Save information (LocalStorage)
 - Built with Vanilla js
 - Responsive
