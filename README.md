@@ -1,3 +1,5 @@
+![image](https://s8.uupload.ir/files/20230430184645_ot54.jpg)
+
 
 # Todo App.
 
@@ -8,7 +10,7 @@ Todo app is a web application for managing daily tasks.
 
  [Live Demo](http://a-hosseini.ir/projects/todo/)
 
-## Features
+### Features
 
 
 - Progress Chart
