@@ -105,7 +105,7 @@ function newTask(){
                   
             // validattion title
             if(title.value == null || title.value == '' || title.value == ' '){
-                html.showMessage('Please Enter a Titel');
+                html.showMessage('Please enter a title');
                 // validattion categories
             } else if(category == null){
                 html.showMessage('Please Select a Category');
