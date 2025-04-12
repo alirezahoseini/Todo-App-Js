@@ -5,7 +5,7 @@
 Everything you need to manage your daily tasks is in Todo App.
 
   
-[Try it now 🎲](http://a-hosseini.ir/projects/todo)
+[Try it now 🎲](https://alirezahoseini.github.io/Todo-App-Js/)
 
 
 
